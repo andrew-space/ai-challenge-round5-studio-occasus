@@ -16,6 +16,14 @@
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
+  <div class="site-atmosphere" aria-hidden="true">
+    <div class="site-atmosphere__orb site-atmosphere__orb--one"></div>
+    <div class="site-atmosphere__orb site-atmosphere__orb--two"></div>
+    <div class="site-atmosphere__rings site-atmosphere__rings--left"></div>
+    <div class="site-atmosphere__rings site-atmosphere__rings--right"></div>
+    <img class="site-atmosphere__banner" src="assets/studio-occasus-banner.jpg" alt="">
+    <img class="site-atmosphere__mark" src="assets/occasus-app-icon.png" alt="">
+  </div>
 
   <!-- ── Sticky Nav ──────────────────────────────── -->
   <header class="nav" id="nav">
@@ -29,6 +37,10 @@
         <a href="blog.html" class="nav__link">Blog</a>
       </nav>
       <div class="nav__right">
+        <div class="lang-switch" role="group" aria-label="Language switcher">
+          <button class="lang-switch__btn lang-switch__btn--active" type="button" data-lang="en">EN</button>
+          <button class="lang-switch__btn" type="button" data-lang="fr">FR</button>
+        </div>
         <div class="streak-pill" title="Daily streak">
           <span class="streak-pill__fire">&#128293;</span>
           <span class="streak-pill__count" id="streak-count">0</span>
@@ -145,38 +157,64 @@
         <h2>Ten tools for clarity-driven marketing.</h2>
       </div>
 
-      <div class="tabs" role="tablist">
-        <button class="tabs__btn tabs__btn--active" role="tab" aria-selected="true" aria-controls="panel-clarity" data-tool="clarity">
+      <div class="tool-workspace">
+        <aside class="tool-nav">
+          <div class="tool-nav__intro">
+            <span class="tag">Tool navigator</span>
+            <p class="tool-nav__copy">Pick one task, move through the tools without hunting, and keep the workspace focused on one action at a time.</p>
+          </div>
+
+          <div class="tool-mobile-switch">
+            <label class="tool-mobile-switch__label" for="tool-select">Choose your tool</label>
+            <select id="tool-select" class="tool-mobile-switch__select"></select>
+          </div>
+
+          <div class="tabs" role="tablist">
+        <button class="tabs__btn tabs__btn--active" role="tab" aria-selected="true" aria-controls="panel-clarity" data-tool="clarity" data-label-en="Clarity Rewriter" data-label-fr="Réécriture claire" data-desc-en="Simplify dense marketing copy into plain, direct language." data-desc-fr="Simplifiez un texte marketing dense en langage clair et direct.">
           <span class="tabs__num">01</span> Clarity Rewriter
         </button>
-        <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="panel-brand" data-tool="brand">
+        <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="panel-brand" data-tool="brand" data-label-en="Brand Message" data-label-fr="Message de marque" data-desc-en="Turn a fuzzy offer into positioning, value, and lead copy." data-desc-fr="Transformez une offre floue en positionnement, promesse et accroche.">
           <span class="tabs__num">02</span> Brand Message
         </button>
-        <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="panel-utm" data-tool="utm">
+        <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="panel-utm" data-tool="utm" data-label-en="UTM Builder" data-label-fr="Créateur UTM" data-desc-en="Generate clean campaign links without manual tagging errors." data-desc-fr="Générez des liens de campagne propres sans erreurs de balisage.">
           <span class="tabs__num">03</span> UTM Builder
         </button>
-        <button class="tabs__btn tabs__btn--pro" role="tab" aria-selected="false" aria-controls="panel-tone" data-tool="tone">
+        <button class="tabs__btn tabs__btn--pro" role="tab" aria-selected="false" aria-controls="panel-tone" data-tool="tone" data-label-en="Tone Analyzer" data-label-fr="Analyseur de ton" data-desc-en="Break down how formal, persuasive, or technical your text sounds." data-desc-fr="Analysez le niveau de formalité, de persuasion et de technicité du texte.">
           <span class="tabs__num">04</span> Tone Analyzer <span class="pro-badge">PRO</span>
         </button>
-        <button class="tabs__btn tabs__btn--pro" role="tab" aria-selected="false" aria-controls="panel-headline" data-tool="headline">
+        <button class="tabs__btn tabs__btn--pro" role="tab" aria-selected="false" aria-controls="panel-headline" data-tool="headline" data-label-en="Headline Scorer" data-label-fr="Scoreur de titres" data-desc-en="Compare headlines and see what improves click potential." data-desc-fr="Comparez vos titres et voyez ce qui améliore leur impact.">
           <span class="tabs__num">05</span> Headline Scorer <span class="pro-badge">PRO</span>
         </button>
-        <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="panel-counter" data-tool="counter">
+        <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="panel-counter" data-tool="counter" data-label-en="Word Counter" data-label-fr="Compteur de mots" data-desc-en="Track word count, read time, and platform character limits live." data-desc-fr="Suivez en direct le nombre de mots, le temps de lecture et les limites de plateformes.">
           <span class="tabs__num">06</span> Word Counter
         </button>
-        <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="panel-readability" data-tool="readability">
+        <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="panel-readability" data-tool="readability" data-label-en="Readability" data-label-fr="Lisibilité" data-desc-en="Check if your copy is easy to read before you publish it." data-desc-fr="Vérifiez si votre texte est facile à lire avant publication.">
           <span class="tabs__num">07</span> Readability
         </button>
-        <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="panel-email" data-tool="email">
+        <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="panel-email" data-tool="email" data-label-en="Email Subject" data-label-fr="Objet d'email" data-desc-en="Test subject lines for mobile fit, spam risk, and punch." data-desc-fr="Testez vos objets d'email pour la longueur, le spam et l'impact.">
           <span class="tabs__num">08</span> Email Subject
         </button>
-        <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="panel-seo" data-tool="seo">
+        <button class="tabs__btn" role="tab" aria-selected="false" aria-controls="panel-seo" data-tool="seo" data-label-en="SEO Preview" data-label-fr="Aperçu SEO" data-desc-en="Preview title tags and descriptions before they hit search results." data-desc-fr="Prévisualisez vos balises titre et descriptions avant les résultats Google.">
           <span class="tabs__num">09</span> SEO Preview
         </button>
-        <button class="tabs__btn tabs__btn--pro" role="tab" aria-selected="false" aria-controls="panel-social" data-tool="social">
+        <button class="tabs__btn tabs__btn--pro" role="tab" aria-selected="false" aria-controls="panel-social" data-tool="social" data-label-en="Social Post" data-label-fr="Post social" data-desc-en="Adapt one message for X, LinkedIn, Instagram, and Threads." data-desc-fr="Adaptez un message pour X, LinkedIn, Instagram et Threads.">
           <span class="tabs__num">10</span> Social Post <span class="pro-badge">PRO</span>
         </button>
-      </div>
+          </div>
+        </aside>
+
+        <div class="tool-stage">
+          <div class="tool-stage__header">
+            <div>
+              <span class="tool-stage__step" id="tool-current-step">01 / 10</span>
+              <h3 id="tool-current-title">Clarity Rewriter</h3>
+              <p id="tool-current-desc">Simplify dense marketing copy into plain, direct language.</p>
+            </div>
+            <div class="tool-stage__controls">
+              <button class="btn btn--ghost btn--sm" type="button" id="tool-prev">&larr; Previous</button>
+              <button class="btn btn--primary btn--sm" type="button" id="tool-next">Next &rarr;</button>
+            </div>
+          </div>
 
       <!-- Usage meter -->
       <div class="usage-bar" id="usage-bar">
@@ -488,6 +526,8 @@
           </div>
         </div>
       </div>
+        </div>
+      </div>
     </section>
 
     <!-- ── System (dark) ─────────────────────────── -->
@@ -599,7 +639,7 @@
       <p>Save your work, unlock Pro features, and access your history across devices.</p>
       <button class="btn-google" id="btn-google-signin" onclick="OccApp.googleSignIn()">
         <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.997 8.997 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
-        Continue with Google
+        <span id="google-signin-text">Continue with Google</span>
       </button>
       <p class="modal__footer">Free plan activates instantly. Upgrade anytime.</p>
     </div>

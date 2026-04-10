@@ -8,6 +8,129 @@
   /* ── Firebase ─────────────────────────────────── */
   var db = null, auth = null, currentUser = null, isPro = false;
   var firebaseReady = false;
+  var currentLang = localStorage.getItem("occ_lang") === "fr" ? "fr" : "en";
+  var activeTool = "clarity";
+
+  var UI_TEXT = {
+    en: {
+      docTitle: "Occasus Lab | 10 Free Marketing Tools",
+      metaDescription: "10 research-backed marketing tools: Clarity Rewriter, Brand Messaging, UTM Builder, Readability Analyzer, Email Subject Tester, SEO Preview, and more. Free to use, gamified for daily growth.",
+      ogTitle: "Occasus Lab | 10 Free Marketing Tools",
+      ogDescription: "10 tools for clarity, positioning, and calm campaign structure. Gamified for daily use.",
+      navTools: "Tools",
+      navPricing: "Pricing",
+      navBlog: "Blog",
+      signIn: "Sign in",
+      freePlan: "Free Plan",
+      adminPanel: "Admin panel",
+      signOut: "Sign out",
+      heroTag: "10 research-backed marketing tools — free",
+      heroTitle: "From noise<br>to clarity.",
+      heroSub: "Rewrite copy, score headlines, test email subjects, format social posts, check readability, and more. Gamified so you improve every day.",
+      heroStart: "Start using tools — free",
+      heroPricing: "See pricing →",
+      toolsTag: "Marketing toolkit",
+      toolsTitle: "Ten tools for clarity-driven marketing.",
+      toolNavTag: "Tool navigator",
+      toolNavCopy: "Pick one task, move through the tools without hunting, and keep the workspace focused on one action at a time.",
+      chooseTool: "Choose your tool",
+      prevTool: "← Previous",
+      nextTool: "Next →",
+      usageLink: "Upgrade for unlimited →",
+      pricingTag: "Simple pricing",
+      pricingTitle: "Use for free. Upgrade when you need more.",
+      ctaTitle: "Ready to write with clarity?",
+      ctaText: "10 tools. Daily streaks. Badges that prove you're getting better. Start free.",
+      ctaButton: "Open the toolkit",
+      authTitle: "Sign in to Occasus Lab",
+      authText: "Save your work, unlock Pro features, and access your history across devices.",
+      authGoogle: "Continue with Google",
+      authFooter: "Free plan activates instantly. Upgrade anytime.",
+      footerBrand: "Occasus Lab MVP — Round 5 App Showcase",
+      footerTools: "Tools",
+      footerPricing: "Pricing",
+      footerBlog: "Blog",
+      footerAdmin: "Admin",
+      toolDayLabel: "day",
+      toolDaysLabel: "days",
+      dailyChallengeComplete: "Complete! +50 XP bonus",
+      dailyChallengePending: "Use 3 different tools",
+      choosePlanTitle: "Upgrade to Pro",
+      upgradeText: "Unlimited access to all 10 tools, saved history, and priority features.",
+      toolInputText: "Your original text",
+      clarityBtn: "Rewrite for clarity",
+      claritySample: "Load example",
+      brandBtn: "Generate messaging",
+      utmBtn: "Build URL",
+      copyResult: "Copy result",
+      toneBtn: "Analyze tone",
+      headlineBtn: "Score headlines",
+      readabilityBtn: "Analyze readability",
+      emailBtn: "Score subject line",
+      seoBtn: "Generate preview",
+      seoCopy: "Copy HTML",
+      socialBtn: "Format for all platforms"
+    },
+    fr: {
+      docTitle: "Occasus Lab | 10 outils marketing gratuits",
+      metaDescription: "10 outils marketing fondés sur la recherche : réécriture claire, message de marque, créateur UTM, lisibilité, objet d'email, aperçu SEO, et plus encore. Gratuit, gamifié, utile au quotidien.",
+      ogTitle: "Occasus Lab | 10 outils marketing gratuits",
+      ogDescription: "10 outils pour la clarté, le positionnement et une structure de campagne plus calme. Gamifié pour un usage quotidien.",
+      navTools: "Outils",
+      navPricing: "Tarifs",
+      navBlog: "Blog",
+      signIn: "Connexion",
+      freePlan: "Plan gratuit",
+      adminPanel: "Admin",
+      signOut: "Déconnexion",
+      heroTag: "10 outils marketing fondés sur la recherche — gratuits",
+      heroTitle: "Du bruit<br>à la clarté.",
+      heroSub: "Réécris tes textes, score tes titres, teste tes objets d'email, formate tes posts sociaux et vérifie la lisibilité. Le tout dans une expérience qui te fait progresser chaque jour.",
+      heroStart: "Commencer gratuitement",
+      heroPricing: "Voir les tarifs →",
+      toolsTag: "Boîte à outils marketing",
+      toolsTitle: "Dix outils pour un marketing plus clair.",
+      toolNavTag: "Navigation outils",
+      toolNavCopy: "Choisis une tâche, passe d'un outil à l'autre sans chercher, et garde l'espace de travail centré sur une action à la fois.",
+      chooseTool: "Choisir un outil",
+      prevTool: "← Précédent",
+      nextTool: "Suivant →",
+      usageLink: "Passer en illimité →",
+      pricingTag: "Tarification simple",
+      pricingTitle: "Utilise gratuitement. Passe en Pro quand tu en as besoin.",
+      ctaTitle: "Prêt à écrire avec clarté ?",
+      ctaText: "10 outils. Des streaks quotidiens. Des badges qui prouvent tes progrès. Commence gratuitement.",
+      ctaButton: "Ouvrir la boîte à outils",
+      authTitle: "Se connecter à Occasus Lab",
+      authText: "Sauvegarde ton travail, débloque les fonctionnalités Pro et retrouve ton historique sur tous tes appareils.",
+      authGoogle: "Continuer avec Google",
+      authFooter: "Le plan gratuit s'active instantanément. Upgrade à tout moment.",
+      footerBrand: "Occasus Lab MVP — Round 5 App Showcase",
+      footerTools: "Outils",
+      footerPricing: "Tarifs",
+      footerBlog: "Blog",
+      footerAdmin: "Admin",
+      toolDayLabel: "jour",
+      toolDaysLabel: "jours",
+      dailyChallengeComplete: "Complété ! +50 XP bonus",
+      dailyChallengePending: "Utilise 3 outils différents",
+      choosePlanTitle: "Passer en Pro",
+      upgradeText: "Accès illimité aux 10 outils, historique sauvegardé et fonctionnalités prioritaires.",
+      toolInputText: "Texte original",
+      clarityBtn: "Réécrire clairement",
+      claritySample: "Charger un exemple",
+      brandBtn: "Générer le message",
+      utmBtn: "Créer l'URL",
+      copyResult: "Copier le résultat",
+      toneBtn: "Analyser le ton",
+      headlineBtn: "Noter les titres",
+      readabilityBtn: "Analyser la lisibilité",
+      emailBtn: "Noter l'objet",
+      seoBtn: "Générer l'aperçu",
+      seoCopy: "Copier le HTML",
+      socialBtn: "Adapter à toutes les plateformes"
+    }
+  };
 
   try {
     if (typeof FIREBASE_CONFIG !== "undefined" && FIREBASE_CONFIG.apiKey) {
@@ -18,6 +141,172 @@
     }
   } catch (e) {
     console.warn("Firebase not configured — running in local mode.", e);
+  }
+
+  function t(key) {
+    return (UI_TEXT[currentLang] && UI_TEXT[currentLang][key]) || UI_TEXT.en[key] || key;
+  }
+
+  function setText(selector, value) {
+    var el = document.querySelector(selector);
+    if (el) el.textContent = value;
+  }
+
+  function setHTML(selector, value) {
+    var el = document.querySelector(selector);
+    if (el) el.innerHTML = value;
+  }
+
+  function setPlaceholder(selector, value) {
+    var el = document.querySelector(selector);
+    if (el) el.setAttribute("placeholder", value);
+  }
+
+  function setLabel(forId, value) {
+    var el = document.querySelector('label[for="' + forId + '"]');
+    if (el) el.textContent = value;
+  }
+
+  function applyToolButtonLabels() {
+    document.querySelectorAll(".tabs__btn").forEach(function (btn, index) {
+      var label = currentLang === "fr" ? btn.dataset.labelFr : btn.dataset.labelEn;
+      var num = String(index + 1).padStart(2, "0");
+      btn.innerHTML = '<span class="tabs__num">' + num + '</span> ' + label + (btn.classList.contains("tabs__btn--pro") ? ' <span class="pro-badge">PRO</span>' : '');
+      btn.setAttribute("aria-label", label);
+      var option = document.querySelector('#tool-select option[value="' + btn.dataset.tool + '"]');
+      if (option) option.textContent = num + " — " + label;
+    });
+  }
+
+  function applyLanguage() {
+    document.documentElement.lang = currentLang;
+    document.title = t("docTitle");
+    var metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute("content", t("metaDescription"));
+    var ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute("content", t("ogTitle"));
+    var ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute("content", t("ogDescription"));
+
+    document.querySelectorAll(".lang-switch__btn").forEach(function (btn) {
+      btn.classList.toggle("lang-switch__btn--active", btn.dataset.lang === currentLang);
+    });
+
+    setText('.nav__link[href="#tools"]', t("navTools"));
+    setText('.nav__link[href="#pricing"]', t("navPricing"));
+    setText('.nav__link[href="blog.html"]', t("navBlog"));
+    setText("#btn-signin", t("signIn"));
+    setText("#user-plan", isPro ? "Pro Plan" : t("freePlan"));
+    setText("#admin-link", t("adminPanel"));
+    setText(".avatar-dropdown .btn", t("signOut"));
+
+    setText(".hero .tag", t("heroTag"));
+    setHTML(".hero h1", t("heroTitle"));
+    setText(".hero__sub", t("heroSub"));
+    setText('.hero__actions .btn--primary[href="#tools"]', t("heroStart"));
+    setText('.hero__actions .btn--ghost[href="#pricing"]', t("heroPricing"));
+
+    setText("#tools .section__head .tag", t("toolsTag"));
+    setText("#tools .section__head h2", t("toolsTitle"));
+    setText(".tool-nav__intro .tag", t("toolNavTag"));
+    setText(".tool-nav__copy", t("toolNavCopy"));
+    setText('.tool-mobile-switch__label[for="tool-select"]', t("chooseTool"));
+    setText("#tool-prev", t("prevTool"));
+    setText("#tool-next", t("nextTool"));
+    setText(".usage-bar__link", t("usageLink"));
+
+    setText('#pricing .section__head .tag', t("pricingTag"));
+    setText('#pricing .section__head h2', t("pricingTitle"));
+    setText('.cta-banner h2', t("ctaTitle"));
+    setText('.cta-banner p', t("ctaText"));
+    setText('.cta-banner .btn', t("ctaButton"));
+    setText('#auth-modal h2', t("authTitle"));
+    setText('#auth-modal p', t("authText"));
+    setText('#google-signin-text', t("authGoogle"));
+    setText('#auth-modal .modal__footer', t("authFooter"));
+    setText('#upgrade-modal h2', t("choosePlanTitle"));
+    setText('#upgrade-modal p', t("upgradeText"));
+    setText('.footer__brand p', t("footerBrand"));
+    setText('.footer__links a[href="#tools"]', t("footerTools"));
+    setText('.footer__links a[href="#pricing"]', t("footerPricing"));
+    setText('.footer__links a[href="blog.html"]', t("footerBlog"));
+    setText('.footer__links a[href="admin.html"]', t("footerAdmin"));
+
+    setLabel("clarity-input", t("toolInputText"));
+    setText("#btn-clarity", t("clarityBtn"));
+    setText("#clarity-sample", t("claritySample"));
+    setText("#btn-brand", t("brandBtn"));
+    setText("#btn-utm", t("utmBtn"));
+    setText("#utm-copy", t("copyResult"));
+    setText("#btn-tone", t("toneBtn"));
+    setText("#btn-headline", t("headlineBtn"));
+    setText("#btn-readability", t("readabilityBtn"));
+    setText("#btn-email", t("emailBtn"));
+    setText("#btn-seo", t("seoBtn"));
+    setText("#seo-copy", t("seoCopy"));
+    setText("#btn-social", t("socialBtn"));
+
+    setLabel("brand-product", currentLang === "fr" ? "Nom du produit" : "Product name");
+    setLabel("audience", currentLang === "fr" ? "Audience" : "Audience");
+    setLabel("problem", currentLang === "fr" ? "Problème principal" : "Main problem");
+    setLabel("outcome", currentLang === "fr" ? "Résultat attendu" : "Desired outcome");
+    setLabel("difference", currentLang === "fr" ? "Différenciation clé" : "Key difference");
+    setLabel("proof", currentLang === "fr" ? "Preuve ou crédibilité" : "Proof or credibility");
+    setLabel("tone", currentLang === "fr" ? "Ton" : "Tone");
+    setLabel("base-url", currentLang === "fr" ? "URL de base" : "Base URL");
+    setLabel("utm-source", currentLang === "fr" ? "Source" : "Source");
+    setLabel("utm-medium", currentLang === "fr" ? "Canal" : "Medium");
+    setLabel("utm-campaign", currentLang === "fr" ? "Campagne" : "Campaign");
+    setLabel("utm-content", currentLang === "fr" ? "Contenu" : "Content");
+    setLabel("utm-term", currentLang === "fr" ? "Terme" : "Term");
+    setLabel("tone-input", currentLang === "fr" ? "Collez votre texte" : "Paste your text");
+    setLabel("headline-input", currentLang === "fr" ? "Entrez votre titre" : "Enter your headline");
+    setLabel("headline-input-2", currentLang === "fr" ? "Alternative (optionnel)" : "Alternative (optional)");
+    setLabel("counter-input", currentLang === "fr" ? "Votre texte" : "Your text");
+    setLabel("readability-input", currentLang === "fr" ? "Collez votre texte" : "Paste your text");
+    setLabel("email-subject", currentLang === "fr" ? "Objet de l'email" : "Subject line");
+    setLabel("seo-title", currentLang === "fr" ? "Titre de la page" : "Page title");
+    setLabel("seo-desc", currentLang === "fr" ? "Meta description" : "Meta description");
+    setLabel("seo-url", currentLang === "fr" ? "URL de la page" : "Page URL");
+    setLabel("social-input", currentLang === "fr" ? "Message central" : "Core message");
+
+    setPlaceholder("#clarity-input", currentLang === "fr" ? "Collez ici un texte marketing confus..." : "Paste messy marketing copy here...");
+    setPlaceholder("#tone-input", currentLang === "fr" ? "Collez un texte marketing, un email ou une page de vente..." : "Paste marketing copy, email, or landing page text...");
+    setPlaceholder("#headline-input", currentLang === "fr" ? "ex. Comment écrire un texte qui convertit en 30 secondes" : "e.g. How to write copy that converts in 30 seconds");
+    setPlaceholder("#headline-input-2", currentLang === "fr" ? "Comparer avec un second titre" : "Compare with a second headline");
+    setPlaceholder("#counter-input", currentLang === "fr" ? "Collez ou écrivez du texte..." : "Paste or type text...");
+    setPlaceholder("#readability-input", currentLang === "fr" ? "Collez un texte marketing, une landing page ou un article..." : "Paste marketing copy, landing page text, or blog post...");
+    setPlaceholder("#email-subject", currentLang === "fr" ? "ex. Vous laissez de l'argent sur la table" : "e.g. You're leaving money on the table");
+    setPlaceholder("#seo-title", currentLang === "fr" ? "Ma landing page" : "My Awesome Landing Page");
+    setPlaceholder("#seo-desc", currentLang === "fr" ? "Une description convaincante..." : "A compelling description...");
+    setPlaceholder("#social-input", currentLang === "fr" ? "Écris ton message principal..." : "Type your core message...");
+
+    applyToolButtonLabels();
+    updateToolStageHeader();
+    updateGamificationUI();
+    updateUsageBar();
+  }
+
+  function setLanguage(lang) {
+    currentLang = lang === "fr" ? "fr" : "en";
+    localStorage.setItem("occ_lang", currentLang);
+    applyLanguage();
+  }
+
+  function updateToolStageHeader() {
+    var btns = Array.prototype.slice.call(document.querySelectorAll(".tabs__btn"));
+    if (!btns.length) return;
+    var index = btns.findIndex(function (btn) { return btn.dataset.tool === activeTool; });
+    if (index < 0) index = 0;
+    var btn = btns[index];
+    var label = currentLang === "fr" ? btn.dataset.labelFr : btn.dataset.labelEn;
+    var desc = currentLang === "fr" ? btn.dataset.descFr : btn.dataset.descEn;
+    setText("#tool-current-step", String(index + 1).padStart(2, "0") + " / " + btns.length);
+    setText("#tool-current-title", label);
+    setText("#tool-current-desc", desc);
+
+    var select = document.getElementById("tool-select");
+    if (select) select.value = activeTool;
   }
 
   /* ── Limits ───────────────────────────────────── */
@@ -150,7 +439,7 @@
     if (todayTools >= 3 && g.dailyChallengeBonusDate !== today) {
       g.xp = (g.xp || 0) + 50;
       g.dailyChallengeBonusDate = today;
-      toast("Daily challenge complete! +50 XP", "success");
+      toast(currentLang === "fr" ? "Défi quotidien complété ! +50 XP" : "Daily challenge complete! +50 XP", "success");
     }
 
     if (g.badges.indexOf("first-draft") === -1 && Object.keys(tu).length > 0) earned.push("first-draft");
@@ -210,7 +499,7 @@
 
     /* Dashboard stats */
     var gs = document.getElementById("gf-streak");
-    if (gs) gs.innerHTML = "&#128293; " + (g.streak || 0) + " day" + ((g.streak || 0) !== 1 ? "s" : "");
+    if (gs) gs.innerHTML = "&#128293; " + (g.streak || 0) + " " + ((g.streak || 0) !== 1 ? t("toolDaysLabel") : t("toolDayLabel"));
     var gl = document.getElementById("gf-level");
     if (gl) gl.textContent = level.name;
     var gx = document.getElementById("gf-xp");
@@ -221,7 +510,7 @@
     var gt = document.getElementById("gf-tools-today");
     if (gt) gt.textContent = toolsToday + " / " + Object.keys(TOOL_NAMES).length;
     var gc = document.getElementById("gf-challenge");
-    if (gc) gc.textContent = toolsToday >= 3 ? "Complete! +50 XP bonus" : "Use 3 different tools (" + toolsToday + "/3)";
+    if (gc) gc.textContent = toolsToday >= 3 ? t("dailyChallengeComplete") : t("dailyChallengePending") + " (" + toolsToday + "/3)";
 
     /* Badges */
     var badges = g.badges || [];
@@ -293,11 +582,14 @@
       var dropPlan = document.getElementById("user-plan");
       if (dropName) dropName.textContent = currentUser.displayName || "";
       if (dropEmail) dropEmail.textContent = currentUser.email || "";
-      if (dropPlan) dropPlan.textContent = isPro ? "Pro Plan" : "Free Plan";
+      if (dropPlan) dropPlan.textContent = isPro ? "Pro Plan" : t("freePlan");
       /* Show admin link for whitelisted emails */
       var adminLink = document.getElementById("admin-link");
       var ADMIN_EMAILS = ["andrew.neuburger@community.isunet.edu", "andrew.neuburger@isunet.edu"];
-      if (adminLink && ADMIN_EMAILS.indexOf(currentUser.email) !== -1) adminLink.classList.remove("hidden");
+      if (adminLink) {
+        adminLink.textContent = t("adminPanel");
+        if (ADMIN_EMAILS.indexOf(currentUser.email) !== -1) adminLink.classList.remove("hidden");
+      }
     } else {
       signInBtn.classList.remove("hidden");
       avatarMenu.classList.add("hidden");
@@ -323,7 +615,7 @@
     var fill = bar.querySelector(".usage-bar__fill");
     var text = bar.querySelector(".usage-bar__text");
     if (fill) { fill.style.width = pct + "%"; fill.classList.toggle("usage-bar__fill--warn", pct >= 80); }
-    if (text) text.textContent = total + " / " + max + " free uses today";
+    if (text) text.textContent = currentLang === "fr" ? total + " / " + max + " usages gratuits aujourd'hui" : total + " / " + max + " free uses today";
   }
 
   /* ── OccApp global (called from HTML) ────────── */
@@ -431,8 +723,10 @@
     loadClaritySample: function () {
       var input = document.getElementById("clarity-input");
       if (!input) return;
-      input.value = "Our cross-functional integrated solution empowers growth-stage teams to operationalize high-impact storytelling and scalable positioning across fragmented digital channels.";
-      toast("Example loaded", "info");
+      input.value = currentLang === "fr"
+        ? "Notre solution intégrée aide les équipes en croissance à structurer un storytelling à fort impact et un positionnement lisible sur des canaux digitaux fragmentés."
+        : "Our cross-functional integrated solution empowers growth-stage teams to operationalize high-impact storytelling and scalable positioning across fragmented digital channels.";
+      toast(currentLang === "fr" ? "Exemple chargé" : "Example loaded", "info");
     },
     copySocial: function (platform) {
       var el = document.getElementById("social-" + platform + "-text");
@@ -456,16 +750,58 @@
   function initTabs() {
     var wrap = document.querySelector(".tabs");
     if (!wrap) return;
-    var btns = wrap.querySelectorAll(".tabs__btn");
+    var btns = Array.prototype.slice.call(wrap.querySelectorAll(".tabs__btn"));
+    var select = document.getElementById("tool-select");
+    var prev = document.getElementById("tool-prev");
+    var next = document.getElementById("tool-next");
+
+    function activateTool(tool) {
+      activeTool = tool;
+      btns.forEach(function (btn) {
+        var selected = btn.dataset.tool === tool;
+        btn.classList.toggle("tabs__btn--active", selected);
+        btn.setAttribute("aria-selected", selected ? "true" : "false");
+      });
+      document.querySelectorAll(".panel").forEach(function (p) {
+        p.classList.toggle("panel--active", p.id === "panel-" + tool);
+      });
+      updateToolStageHeader();
+    }
+
     btns.forEach(function (btn) {
       btn.addEventListener("click", function () {
-        var t = btn.dataset.tool;
-        btns.forEach(function (b) { b.classList.toggle("tabs__btn--active", b === btn); });
-        document.querySelectorAll(".panel").forEach(function (p) {
-          p.classList.toggle("panel--active", p.id === "panel-" + t);
-        });
+        activateTool(btn.dataset.tool);
       });
     });
+
+    if (select) {
+      btns.forEach(function (btn) {
+        var option = document.createElement("option");
+        option.value = btn.dataset.tool;
+        select.appendChild(option);
+      });
+      select.addEventListener("change", function () {
+        activateTool(select.value);
+      });
+    }
+
+    if (prev) {
+      prev.addEventListener("click", function () {
+        var index = btns.findIndex(function (btn) { return btn.dataset.tool === activeTool; });
+        activateTool(btns[(index - 1 + btns.length) % btns.length].dataset.tool);
+      });
+    }
+
+    if (next) {
+      next.addEventListener("click", function () {
+        var index = btns.findIndex(function (btn) { return btn.dataset.tool === activeTool; });
+        activateTool(btns[(index + 1) % btns.length].dataset.tool);
+      });
+    }
+
+    window.OccApp.activateTool = activateTool;
+    applyToolButtonLabels();
+    activateTool(activeTool);
   }
 
   /* ═══════════════════════════════════════════════════
@@ -543,18 +879,25 @@
 
   function buildClarityNotes(j, f, s) {
     var notes = [];
-    if (j) notes.push("Replaced " + j + " jargon term" + (j > 1 ? "s" : "") + " with plain language");
-    if (f) notes.push("Removed " + f + " filler word" + (f > 1 ? "s" : ""));
-    if (s) notes.push("Split " + s + " long sentence" + (s > 1 ? "s" : ""));
-    if (!notes.length) notes.push("Text is already clear — no changes needed");
+    if (currentLang === "fr") {
+      if (j) notes.push("Remplacement de " + j + " terme" + (j > 1 ? "s" : "") + " trop jargonneux par un langage plus simple");
+      if (f) notes.push("Suppression de " + f + " mot" + (f > 1 ? "s" : "") + " de remplissage");
+      if (s) notes.push("Découpage de " + s + " phrase" + (s > 1 ? "s" : "") + " trop longue");
+      if (!notes.length) notes.push("Le texte est déjà clair — aucun changement nécessaire");
+    } else {
+      if (j) notes.push("Replaced " + j + " jargon term" + (j > 1 ? "s" : "") + " with plain language");
+      if (f) notes.push("Removed " + f + " filler word" + (f > 1 ? "s" : ""));
+      if (s) notes.push("Split " + s + " long sentence" + (s > 1 ? "s" : ""));
+      if (!notes.length) notes.push("Text is already clear — no changes needed");
+    }
     return notes;
   }
 
   function runClarity() {
-    if (!canUse("clarity")) { toast("Daily limit reached — upgrade to Pro for unlimited", "info"); window.OccApp.showUpgradeModal(); return; }
+    if (!canUse("clarity")) { toast(currentLang === "fr" ? "Limite du jour atteinte — passe en Pro pour un accès illimité" : "Daily limit reached — upgrade to Pro for unlimited", "info"); window.OccApp.showUpgradeModal(); return; }
     var text = document.getElementById("clarity-input").value;
     var result = rewriteClarity(text);
-    if (!result) { toast("Paste some text to rewrite", "info"); return; }
+    if (!result) { toast(currentLang === "fr" ? "Colle un texte à réécrire" : "Paste some text to rewrite", "info"); return; }
     recordUse("clarity");
     document.getElementById("clarity-output").textContent = result.rewritten;
     document.getElementById("clarity-jargon").textContent = result.jargon;
@@ -572,7 +915,7 @@
     saveGamification(g);
     checkBadges();
 
-    toast("Clarity analysis complete", "success");
+    toast(currentLang === "fr" ? "Analyse de clarté terminée" : "Clarity analysis complete", "success");
   }
 
   /* ═══════════════════════════════════════════════════
@@ -586,7 +929,7 @@
     var outcome = document.getElementById("outcome").value.trim();
     var tone = document.getElementById("tone").value;
 
-    if (!product || !audience || !problem) { toast("Fill in at least product, audience, and problem", "info"); return; }
+    if (!product || !audience || !problem) { toast(currentLang === "fr" ? "Renseigne au minimum le produit, l'audience et le problème" : "Fill in at least product, audience, and problem", "info"); return; }
     recordUse("brand");
 
     var toneAdj = {
@@ -600,16 +943,24 @@
     };
     var adj = toneAdj[tone] || "clear";
 
-    var tagline = capitalize(problem.split(" ").slice(0, 3).join(" ")) + "? " + capitalize(product) + ".";
-    var elevator = product + " helps " + audience + " solve " + problem + (outcome ? " so they can " + outcome : "") + ". Our approach is " + adj + ".";
-    var headline = "Stop " + gerund(problem.split(" ")[0]) + ". Start " + gerund((outcome || "winning").split(" ")[0]) + ".";
-    var cta = (tone === "bold" || tone === "direct") ? "Get started now ->" : (tone === "friendly" || tone === "warm") ? "Let's make it happen" : "Learn more ->";
+    var tagline = currentLang === "fr"
+      ? capitalize(product) + " clarifie " + problem + "."
+      : capitalize(problem.split(" ").slice(0, 3).join(" ")) + "? " + capitalize(product) + ".";
+    var elevator = currentLang === "fr"
+      ? product + " aide " + audience + " à résoudre " + problem + (outcome ? " pour obtenir " + outcome : "") + ". L'approche est " + adj + "."
+      : product + " helps " + audience + " solve " + problem + (outcome ? " so they can " + outcome : "") + ". Our approach is " + adj + ".";
+    var headline = currentLang === "fr"
+      ? "Arrête de subir le flou. Commence à clarifier."
+      : "Stop " + gerund(problem.split(" ")[0]) + ". Start " + gerund((outcome || "winning").split(" ")[0]) + ".";
+    var cta = currentLang === "fr"
+      ? ((tone === "bold" || tone === "direct") ? "Commencer maintenant ->" : (tone === "friendly" || tone === "warm") ? "On le construit ensemble" : "En savoir plus ->")
+      : ((tone === "bold" || tone === "direct") ? "Get started now ->" : (tone === "friendly" || tone === "warm") ? "Let's make it happen" : "Learn more ->");
 
     document.getElementById("positioning-output").textContent = tagline;
     document.getElementById("value-output").textContent = elevator;
     document.getElementById("lead-output").textContent = headline;
     document.getElementById("brand-cta").textContent = cta;
-    toast("Brand messages generated", "success");
+    toast(currentLang === "fr" ? "Messages de marque générés" : "Brand messages generated", "success");
   }
   function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ""; }
   function gerund(w) { return w ? (w.endsWith("e") ? w.slice(0, -1) + "ing" : w + "ing") : "doing"; }
@@ -638,7 +989,7 @@
     var full = base + sep + params;
 
     document.getElementById("utm-output").textContent = full;
-    toast("UTM link generated", "success");
+    toast(currentLang === "fr" ? "Lien UTM généré" : "UTM link generated", "success");
   }
   function copyUTM() {
     var url = document.getElementById("utm-output").textContent;
@@ -860,7 +1211,7 @@
   function runReadability() {
     if (!canUse("readability")) { toast("Daily limit reached — upgrade to Pro", "info"); window.OccApp.showUpgradeModal(); return; }
     var text = (document.getElementById("readability-input").value || "").trim();
-    if (!text) { toast("Paste some text to analyze", "info"); return; }
+    if (!text) { toast(currentLang === "fr" ? "Colle un texte à analyser" : "Paste some text to analyze", "info"); return; }
     recordUse("readability");
 
     var sentences = text.split(/[.!?]+/).filter(function (s) { return s.trim().length > 0; });
@@ -875,10 +1226,10 @@
     flesch = Math.max(0, Math.min(100, Math.round(flesch)));
 
     var grade;
-    if (flesch >= 80) grade = "5th grade (very easy)";
-    else if (flesch >= 60) grade = "8th grade (standard)";
-    else if (flesch >= 40) grade = "College (difficult)";
-    else grade = "Graduate (very difficult)";
+    if (flesch >= 80) grade = currentLang === "fr" ? "Très facile" : "5th grade (very easy)";
+    else if (flesch >= 60) grade = currentLang === "fr" ? "Standard" : "8th grade (standard)";
+    else if (flesch >= 40) grade = currentLang === "fr" ? "Difficile" : "College (difficult)";
+    else grade = currentLang === "fr" ? "Très difficile" : "Graduate (very difficult)";
 
     /* Long sentences */
     var longSentences = sentences.filter(function (s) { return s.trim().split(/\s+/).length > 20; }).length;
@@ -890,15 +1241,19 @@
     document.getElementById("readability-score").className = "big-score " + (flesch >= 60 ? "score-good" : flesch >= 40 ? "score-ok" : "score-bad");
     document.getElementById("readability-grade").textContent = grade;
     document.getElementById("readability-avgwps").textContent = avgWPS;
-    document.getElementById("readability-long").textContent = longSentences ? longSentences + " sentence" + (longSentences > 1 ? "s" : "") + " over 20 words" : "None — great!";
-    document.getElementById("readability-passive").textContent = passiveCount ? passiveCount + " instance" + (passiveCount > 1 ? "s" : "") + " detected" : "None found";
+    document.getElementById("readability-long").textContent = currentLang === "fr"
+      ? (longSentences ? longSentences + " phrase" + (longSentences > 1 ? "s" : "") + " de plus de 20 mots" : "Aucune — très bien")
+      : (longSentences ? longSentences + " sentence" + (longSentences > 1 ? "s" : "") + " over 20 words" : "None — great!");
+    document.getElementById("readability-passive").textContent = currentLang === "fr"
+      ? (passiveCount ? passiveCount + " occurrence" + (passiveCount > 1 ? "s" : "") + " détectée" + (passiveCount > 1 ? "s" : "") : "Aucune détectée")
+      : (passiveCount ? passiveCount + " instance" + (passiveCount > 1 ? "s" : "") + " detected" : "None found");
 
     var verdict;
-    if (flesch >= 70) verdict = "Excellent readability. Your audience will have no trouble understanding this.";
-    else if (flesch >= 50) verdict = "Good readability. Consider shortening a few sentences for broader appeal.";
-    else verdict = "Difficult to read. Try shorter sentences, simpler words, and active voice.";
+    if (flesch >= 70) verdict = currentLang === "fr" ? "Excellente lisibilité. Ton audience comprendra facilement ce texte." : "Excellent readability. Your audience will have no trouble understanding this.";
+    else if (flesch >= 50) verdict = currentLang === "fr" ? "Bonne lisibilité. Tu peux encore raccourcir quelques phrases pour élargir l'impact." : "Good readability. Consider shortening a few sentences for broader appeal.";
+    else verdict = currentLang === "fr" ? "Le texte est difficile à lire. Essaie des phrases plus courtes, des mots plus simples et une voix plus active." : "Difficult to read. Try shorter sentences, simpler words, and active voice.";
     document.getElementById("readability-verdict").textContent = verdict;
-    toast("Readability analysis complete", "success");
+    toast(currentLang === "fr" ? "Analyse de lisibilité terminée" : "Readability analysis complete", "success");
   }
 
   /* ═══════════════════════════════════════════════════
@@ -910,7 +1265,7 @@
   function runEmail() {
     if (!canUse("email")) { toast("Daily limit reached — upgrade to Pro", "info"); window.OccApp.showUpgradeModal(); return; }
     var subject = (document.getElementById("email-subject").value || "").trim();
-    if (!subject) { toast("Enter a subject line", "info"); return; }
+    if (!subject) { toast(currentLang === "fr" ? "Entre un objet d'email" : "Enter a subject line", "info"); return; }
     recordUse("email");
 
     var score = 50;
@@ -945,13 +1300,19 @@
 
     document.getElementById("email-score").textContent = score + "/100";
     document.getElementById("email-score").className = "big-score " + (score >= 70 ? "score-good" : score >= 45 ? "score-ok" : "score-bad");
-    document.getElementById("email-len").textContent = len + " chars " + (len >= 30 && len <= 60 ? "(ideal for mobile)" : len > 60 ? "(may get truncated)" : "(short)");
-    document.getElementById("email-spam").textContent = spamCount ? spamCount + " spam trigger" + (spamCount > 1 ? "s" : "") + " found" : "Clean — no spam triggers";
+    document.getElementById("email-len").textContent = currentLang === "fr"
+      ? len + " caractères " + (len >= 30 && len <= 60 ? "(idéal sur mobile)" : len > 60 ? "(peut être tronqué)" : "(court)")
+      : len + " chars " + (len >= 30 && len <= 60 ? "(ideal for mobile)" : len > 60 ? "(may get truncated)" : "(short)");
+    document.getElementById("email-spam").textContent = currentLang === "fr"
+      ? (spamCount ? spamCount + " déclencheur" + (spamCount > 1 ? "s" : "") + " spam trouvé" + (spamCount > 1 ? "s" : "") : "Propre — aucun déclencheur spam")
+      : (spamCount ? spamCount + " spam trigger" + (spamCount > 1 ? "s" : "") + " found" : "Clean — no spam triggers");
     document.getElementById("email-spam").className = spamCount ? "metric-bad" : "metric-good";
-    document.getElementById("email-power").textContent = powerCount ? powerCount + " power word" + (powerCount > 1 ? "s" : "") : "No power words — consider adding one";
+    document.getElementById("email-power").textContent = currentLang === "fr"
+      ? (powerCount ? powerCount + " mot" + (powerCount > 1 ? "s" : "") + " puissant" + (powerCount > 1 ? "s" : "") : "Aucun mot puissant — pense à en ajouter un")
+      : (powerCount ? powerCount + " power word" + (powerCount > 1 ? "s" : "") : "No power words — consider adding one");
     document.getElementById("email-preview-subject").textContent = subject;
     document.getElementById("email-preview-preview").textContent = subject.length > 40 ? subject.slice(0, 40) + "..." : subject;
-    toast("Subject line scored", "success");
+    toast(currentLang === "fr" ? "Objet d'email noté" : "Subject line scored", "success");
   }
 
   /* ═══════════════════════════════════════════════════
@@ -964,7 +1325,7 @@
     var title = (document.getElementById("seo-title").value || "").trim();
     var desc = (document.getElementById("seo-desc").value || "").trim();
     var url = (document.getElementById("seo-url").value || "").trim();
-    if (!title) { toast("Enter a page title", "info"); return; }
+    if (!title) { toast(currentLang === "fr" ? "Entre un titre de page" : "Enter a page title", "info"); return; }
     recordUse("seo");
 
     var score = 50;
@@ -972,26 +1333,26 @@
 
     /* Title length: 50-60 is ideal */
     if (title.length >= 50 && title.length <= 60) { score += 15; }
-    else if (title.length < 30) { score -= 10; tips.push("Title is too short — aim for 50-60 characters"); }
-    else if (title.length > 60) { tips.push("Title may be truncated — keep under 60 chars"); }
+    else if (title.length < 30) { score -= 10; tips.push(currentLang === "fr" ? "Le titre est trop court — vise 50 à 60 caractères" : "Title is too short — aim for 50-60 characters"); }
+    else if (title.length > 60) { tips.push(currentLang === "fr" ? "Le titre peut être tronqué — reste sous 60 caractères" : "Title may be truncated — keep under 60 chars"); }
     else { score += 5; }
 
     /* Description length: 120-155 is ideal */
     if (desc.length >= 120 && desc.length <= 155) { score += 15; }
-    else if (desc.length < 70) { score -= 10; tips.push("Meta description is too short — aim for 120-155 characters"); }
-    else if (desc.length > 155) { tips.push("Description may be truncated in SERP"); }
+    else if (desc.length < 70) { score -= 10; tips.push(currentLang === "fr" ? "La meta description est trop courte — vise 120 à 155 caractères" : "Meta description is too short — aim for 120-155 characters"); }
+    else if (desc.length > 155) { tips.push(currentLang === "fr" ? "La description peut être tronquée dans les résultats de recherche" : "Description may be truncated in SERP"); }
     else { score += 5; }
 
     /* Power word in title */
     var hasPower = false;
     POWER_WORDS.forEach(function (w) { if (title.toLowerCase().indexOf(w) !== -1) hasPower = true; });
-    if (hasPower) { score += 10; } else { tips.push("Add a power word to the title for better CTR"); }
+    if (hasPower) { score += 10; } else { tips.push(currentLang === "fr" ? "Ajoute un mot fort dans le titre pour améliorer le CTR" : "Add a power word to the title for better CTR"); }
 
     /* Number in title */
-    if (/\d/.test(title)) { score += 5; } else { tips.push("Headlines with numbers get more clicks"); }
+    if (/\d/.test(title)) { score += 5; } else { tips.push(currentLang === "fr" ? "Les titres avec des chiffres obtiennent plus de clics" : "Headlines with numbers get more clicks"); }
 
-    if (!url) tips.push("Add a URL for the full SERP preview");
-    if (!tips.length) tips.push("Looking good! Your meta tags are well-optimized.");
+    if (!url) tips.push(currentLang === "fr" ? "Ajoute une URL pour l'aperçu SERP complet" : "Add a URL for the full SERP preview");
+    if (!tips.length) tips.push(currentLang === "fr" ? "Très bien. Tes balises meta sont bien optimisées." : "Looking good! Your meta tags are well-optimized.");
 
     score = Math.max(0, Math.min(100, score));
 
@@ -1001,7 +1362,7 @@
     var serpDesc = document.getElementById("serp-desc");
     if (serpTitle) serpTitle.textContent = title.length > 60 ? title.slice(0, 57) + "..." : title;
     if (serpUrl) serpUrl.textContent = url || "example.com";
-    if (serpDesc) serpDesc.textContent = desc.length > 155 ? desc.slice(0, 152) + "..." : desc || "No description provided";
+    if (serpDesc) serpDesc.textContent = desc.length > 155 ? desc.slice(0, 152) + "..." : desc || (currentLang === "fr" ? "Aucune description fournie" : "No description provided");
 
     document.getElementById("seo-score").textContent = score + "/100";
     document.getElementById("seo-score").className = "big-score " + (score >= 70 ? "score-good" : score >= 45 ? "score-ok" : "score-bad");
@@ -1013,7 +1374,7 @@
     /* HTML snippet */
     var html = '<title>' + escHTML(title) + '</title>\n<meta name="description" content="' + escHTML(desc) + '">';
     document.getElementById("seo-html").textContent = html;
-    toast("SEO preview generated", "success");
+    toast(currentLang === "fr" ? "Aperçu SEO généré" : "SEO preview generated", "success");
   }
 
   function copySEOHTML() {
@@ -1106,6 +1467,13 @@
     updateUsageBar();
     initStreak();
     updateGamificationUI();
+    applyLanguage();
+
+    document.querySelectorAll(".lang-switch__btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        setLanguage(btn.dataset.lang);
+      });
+    });
 
     /* Wire tool buttons */
     var btnClarity = document.getElementById("btn-clarity");
