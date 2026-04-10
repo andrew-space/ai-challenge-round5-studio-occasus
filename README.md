@@ -22,6 +22,8 @@ This round is a full MVP web app showcase. The app does not need to be perfect, 
 - Working structure initialized for docs, agents, and site assets.
 - App concept derived from the product brief.
 - MVP first build completed in `site/`.
+- Repository created: `https://github.com/andrew-space/ai-challenge-round5-studio-occasus`
+- Expected live URL: `https://andrew-space.github.io/ai-challenge-round5-studio-occasus/`
 
 ## Product Direction
 

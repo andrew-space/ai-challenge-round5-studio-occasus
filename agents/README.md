@@ -47,7 +47,7 @@ The fastest demo flow is: paste weak copy into the Clarity Rewriter, show the im
 | Concept selected | ✅ |
 | MVP scope locked | ✅ |
 | App implementation | ✅ First build complete |
-| GitHub Pages deployment | ⏳ Ready to publish |
+| GitHub Pages deployment | ⏳ Publishing in progress |
 
 ## Operating Rules
 
@@ -72,3 +72,4 @@ The fastest demo flow is: paste weak copy into the Clarity Rewriter, show the im
 - UTM Builder for campaign hygiene
 - First blog article connected to the product logic
 - GitHub Pages workflow prepared in `.github/workflows/deploy.yml`
+- GitHub repo created at `https://github.com/andrew-space/ai-challenge-round5-studio-occasus`

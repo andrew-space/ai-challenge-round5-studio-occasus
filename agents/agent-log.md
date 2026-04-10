@@ -28,11 +28,19 @@ This file is the running history for Round 5. It should let a future session rec
 - Added GitHub Pages workflow in `.github/workflows/deploy.yml`.
 - Static validation completed with no file errors reported.
 
+## 2026-04-10 - Repository and publish setup
+
+- Initialized git in Round 5 and created the first commit: `e4bad36`.
+- Created GitHub repository `ai-challenge-round5-studio-occasus`.
+- Pushed `main` to GitHub.
+- Enabled GitHub Pages in workflow mode.
+- Expected live URL: `https://andrew-space.github.io/ai-challenge-round5-studio-occasus/`.
+
 ## Current State
 
 - App concept is now locked at a high level.
 - First functional MVP build exists locally.
-- Deployment workflow is ready, but publishing has not happened yet.
+- Publishing pipeline has been started on GitHub Actions.
 
 ## Update Rules
 
