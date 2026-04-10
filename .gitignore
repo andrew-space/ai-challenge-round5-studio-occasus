@@ -1,0 +1,26 @@
+# Secrets and environment files
+.env
+.env.*
+*.env
+!.env.example
+
+# API keys and service account material
+*serviceAccount*.json
+firebase-adminsdk*.json
+
+# Node / Functions artifacts
+node_modules/
+functions/node_modules/
+
+# Python artifacts
+__pycache__/
+*.pyc
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/*.log
+
+# Generated outputs
+site/data/generated/
+research_pipeline/generated/

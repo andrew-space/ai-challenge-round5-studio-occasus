@@ -24,7 +24,17 @@ var FREE_LIMITS = {
   brand: 3,
   utm: 999,
   tone: 0,
-  headline: 0
+  headline: 0,
+  counter: 999,
+  readability: 5,
+  email: 5,
+  seo: 5,
+  social: 0
 };
 
 var PRO_PRICE = { monthly: 9, yearly: 79, currency: "€" };
+
+/* Server-side billing endpoint (Firebase Functions) */
+var BACKEND_CONFIG = {
+  checkoutEndpoint: ""
+};

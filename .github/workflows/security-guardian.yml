@@ -1,0 +1,49 @@
+name: Security Guardian
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  security-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Secret scan (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Block dangerous keys in client code
+        run: |
+          set -e
+          if grep -RInE "(sk_live_|sk_test_|whsec_|-----BEGIN PRIVATE KEY-----)" site; then
+            echo "Sensitive material detected in client code"
+            exit 1
+          fi
+
+      - name: Block client-side privilege elevation anti-pattern
+        run: |
+          set -e
+          if grep -RInE "\.update\(\{\s*isPro\s*:\s*true" site/assets/app.js; then
+            echo "Direct client-side isPro elevation is forbidden"
+            exit 1
+          fi
+
+      - name: Ensure env files are not tracked
+        run: |
+          set -e
+          if git ls-files | grep -E "(^|/)\.env($|\.)"; then
+            echo "Tracked .env files are forbidden"
+            exit 1
+          fi
+
+      - name: Verify security script
+        run: pwsh -File scripts/security-scan.ps1

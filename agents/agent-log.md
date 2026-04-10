@@ -92,6 +92,23 @@ This file is the running history for Round 5. It should let a future session rec
 - **Validation**: No editor errors in `index.html`, `assets/styles.css`, `assets/app.js` after patch.
 - **Commit published**: `2f1a94e` pushed to `main`.
 
+## 2026-04-10 — security hardening + Stripe backend scaffold
+
+- **Round 3 practices applied**: secret hygiene, browser-realistic API assumptions, and release-blocking QA checks.
+- **Client billing hardening**: Removed direct client-side Pro elevation from upgrade flow in `site/assets/app.js`.
+- **Backend billing path added**: Front now requests checkout session from secured backend endpoint (`BACKEND_CONFIG.checkoutEndpoint`).
+- **Firebase+Stripe backend scaffold created**:
+- `functions/index.js` with authenticated `createCheckoutSession` endpoint.
+- `functions/index.js` with signed Stripe `stripeWebhook` endpoint.
+- Idempotency baseline via `stripe_events` collection.
+- **Security controls added**:
+- New agent file `agents/agent-9-security-guardian.md`.
+- CI workflow `.github/workflows/security-guardian.yml` running secret scan + anti-pattern checks on push/PR.
+- Local scanner script `scripts/security-scan.ps1`.
+- Root `.gitignore` now blocks `.env` and service-account leaks.
+- **Firebase config files added**: `firebase.json`, `firestore.rules`, `functions/.env.example`, `functions/README.md`.
+- **Deployment status**: Backend scaffold committed locally and pending Firebase project env wiring before full payment activation.
+
 ## Update Rules
 
 - Append new milestones with date and short rationale.

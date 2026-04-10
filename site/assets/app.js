@@ -309,7 +309,7 @@
       });
     },
     processUpgrade: function () {
-      if (!firebaseReady || !db) {
+      if (!firebaseReady || !auth) {
         toast("Payments require Firebase configuration", "info");
         return;
       }
@@ -318,16 +318,41 @@
         window.OccApp.showAuthModal();
         return;
       }
-      /* MVP demo: set Pro directly. Production: redirect to Stripe Checkout. */
-      db.collection("users").doc(currentUser.uid).update({ isPro: true }).then(function () {
-        isPro = true;
-        updateAuthUI();
-        updateProGates();
-        updateUsageBar();
-        window.OccApp.closeModals();
-        toast("Welcome to Pro! All tools unlocked.", "success");
-      }).catch(function () {
-        toast("Upgrade failed — try again", "error");
+      if (typeof BACKEND_CONFIG === "undefined" || !BACKEND_CONFIG.checkoutEndpoint) {
+        toast("Billing backend is not configured yet", "info");
+        return;
+      }
+
+      var plan = window.OccApp.selectedPlan || "monthly";
+      if (!["monthly", "yearly"].includes(plan)) {
+        toast("Invalid plan selected", "error");
+        return;
+      }
+
+      currentUser.getIdToken(true).then(function (idToken) {
+        return fetch(BACKEND_CONFIG.checkoutEndpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + idToken
+          },
+          body: JSON.stringify({
+            plan: plan,
+            origin: window.location.origin
+          })
+        });
+      }).then(function (res) {
+        return res.json().then(function (payload) { return { ok: res.ok, payload: payload }; });
+      }).then(function (result) {
+        if (!result.ok) {
+          throw new Error((result.payload && result.payload.error) || "Unable to create checkout session");
+        }
+        if (!result.payload || !result.payload.url) {
+          throw new Error("Missing checkout URL");
+        }
+        window.location.href = result.payload.url;
+      }).catch(function (err) {
+        toast("Upgrade failed: " + err.message, "error");
       });
     },
     toggleAvatarDrop: function () {

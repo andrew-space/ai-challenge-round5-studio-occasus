@@ -37,6 +37,10 @@ The fastest demo flow is: paste weak copy into the Clarity Rewriter, show the im
 | Agent 3 - Frontend Builder | Implement HTML, CSS, JS, and data flow for the MVP |
 | Agent 4 - Content and Demo Narrative | Craft copy, onboarding, labels, and showcase-ready framing |
 | Agent 5 - Deploy and QA | Prepare GitHub Pages deploy, smoke test, and final submission checklist |
+| Agent 6 - Review Expert | Critique UX, detect regressions, and propose high-impact fixes |
+| Agent 7 - Blog + NotebookLM Lead | Operate editorial pipeline from research to publishable drafts |
+| Agent 8 - Backend Architect | Design auth, data, and payment architecture with production constraints |
+| Agent 9 - Security Guardian | Enforce security checks, API hygiene, and release-blocking safeguards |
 
 ## Status Snapshot
 
