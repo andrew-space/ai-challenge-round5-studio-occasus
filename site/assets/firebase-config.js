@@ -36,5 +36,5 @@ var PRO_PRICE = { monthly: 9, yearly: 79, currency: "€" };
 
 /* Server-side billing endpoint (Firebase Functions) */
 var BACKEND_CONFIG = {
-  checkoutEndpoint: ""
+  checkoutEndpoint: "https://europe-west1-REPLACE_WITH_FIREBASE_PROJECT_ID.cloudfunctions.net/createCheckoutSession"
 };
