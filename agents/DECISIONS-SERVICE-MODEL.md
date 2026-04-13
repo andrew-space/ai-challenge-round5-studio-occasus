@@ -123,6 +123,45 @@
 
 ---
 
+## NEXT IMPROVEMENT ROADMAP (2026-04-14 audit)
+
+### Sprint 1 — Débloquer le revenu (PRIORITAIRE)
+| Task | Owner | Co-owner | Impact |
+|------|-------|----------|--------|
+| Valider Stripe end-to-end (env vars + test mode + live checkout) | Agent 8 | Agent 9 | Bloquant pour tout revenu |
+| Migrer les limites freemium en Firestore (server-side enforcement) | Agent 8 | Agent 3 | Sans ça, le paywall est contournable via localStorage clear |
+| Ajouter analytics minimal (PostHog ou GA4) avec events: `page_view`, `tool_used`, `paywall_hit`, `signup`, `checkout_started`, `checkout_completed` | Agent 3 | Agent 5 | Aucune visibilité funnel actuellement |
+
+### Sprint 2 — Multiplier la conversion
+| Task | Owner | Co-owner | Impact |
+|------|-------|----------|--------|
+| Intégrer 1 appel IA réel (Cloud Function) pour le Message Clarity Engine | Agent 8 | Agent 3 | Différenciation critique — outil actuel = dictionnaire de ~30 termes, pas de vraie réécriture. Limite à 3/jour free, illimité Pro = meilleur levier de conversion |
+| Implémenter l'onboarding guidé (Mission 01) | Agent 2 | Agent 10 | Utilisateur perdu sans guidance → "première victoire en 30s" |
+
+### Sprint 3 — Augmenter le taux Pro
+| Task | Owner | Co-owner | Impact |
+|------|-------|----------|--------|
+| Export PDF pour Clarity Report + Positioning Builder | Agent 3 | Agent 2 | Promis dans le pricing, non implémenté. Consultants veulent un livrable client |
+| Séquence email post-inscription (J0/J2/J5/J7) | Agent 4 | Agent 10 | Zéro nurturing actuellement après signup |
+
+### Sprint 4 — Rétention long terme
+| Task | Owner | Co-owner | Impact |
+|------|-------|----------|--------|
+| Synchroniser gamification (XP/streaks/badges) en Firestore | Agent 8 | Agent 3 | Tout est perdu au clear cache ou changement de device |
+| Brand Vault (stocker positionnement + voix de marque, pré-remplir les outils) | Agent 2 | Agent 3 | Killer feature consultants — transforme usage one-shot en plateforme indispensable |
+| Dashboard admin avec métriques business (signups, MRR, churn, usage/outil) | Agent 8 | Agent 5 | Aucune visibilité business opérationnelle |
+
+### Faiblesses critiques identifiées (audit 2026-04-14)
+1. **Pas de vraie IA** — Tous les outils sont des heuristiques client-side (dictionnaires, regex, comptage syllabes). L'écart entre le marketing "AI-powered" et la réalité va décevoir les users.
+2. **Limites freemium triviales à contourner** — localStorage uniquement, aucune vérification serveur.
+3. **Gamification volatile** — localStorage uniquement, perdu au clear cache.
+4. **Zéro analytics** — Impossible de mesurer conversion, adoption, churn.
+5. **Exports promis mais non implémentés** — PDF/Notion/Figma mentionnés dans le pricing.
+6. **Pas d'onboarding** — Drop direct dans le workspace, pas de guidance.
+7. **Scores diagnostic arbitraires** — Le scoring "4/10 → 9/10" est basé sur les sélections dropdown, pas sur une vraie analyse de texte.
+
+---
+
 ## ANTI-PATTERNS (What NOT to do)
 
 ❌ Skip Firebase fix thinking "we'll do it later"
@@ -152,8 +191,8 @@
 
 ---
 
-**Status:** ✅ Decisions locked in. Ready for execution.
-**Next action:** Agent 8 unblocks Firebase config.
+**Status:** ✅ Decisions locked in. Roadmap updated 2026-04-14.
+**Next action:** Sprint 1 — Stripe validation + analytics + server-side limits.
 **Escalation path:** If stuck, call Agent 12 (team-manager).
 **Backup reminder:** `scripts/project-backup.ps1` before any risky change.
 

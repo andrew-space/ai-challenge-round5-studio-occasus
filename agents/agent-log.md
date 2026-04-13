@@ -259,6 +259,33 @@ This file is the running history for Studio Occasus (personal project). It shoul
 - Accessibility improved: keyboard focus visibility added for tool tabs.
 - FR microcopy quality improved for diagnostic audience-fit label.
 - Run report saved to `agents/mode-f-5cycles-2026-04-14.md`.
+
+## 2026-04-14 - Full product audit and improvement roadmap
+
+**Audit completed.** Comprehensive review of all 10 tools, freemium model, gamification, conversion strategy, and codebase health.
+
+### Key findings
+1. **No real AI** — All 10 tools run client-side heuristics (jargon dictionaries, regex, syllable counting). The Clarity Rewriter swaps ~30 terms. Users will see through "AI-powered" marketing immediately.
+2. **Freemium limits trivially bypassed** — All enforcement is localStorage. Incognito window = unlimited free usage.
+3. **Stripe not validated** — Backend code exists but never tested end-to-end in production. Env vars not confirmed set.
+4. **Zero analytics** — No event tracking whatsoever. Can't measure funnels, conversion, churn.
+5. **Gamification volatile** — XP/streaks/badges stored only in localStorage. Lost on cache clear or device change.
+6. **Exports promised but not built** — PDF/Notion/Figma mentioned in pricing UI but not implemented.
+7. **No onboarding flow** — Users land in raw workspace with 10 tools and no guidance.
+
+### Improvement roadmap agreed (4 sprints)
+- **Sprint 1 (PRIORITY):** Stripe end-to-end validation + server-side freemium limits (Firestore) + analytics (PostHog/GA4)
+- **Sprint 2:** Integrate 1 real AI call (Cloud Function for Clarity Engine) + implement guided onboarding (Mission 01)
+- **Sprint 3:** PDF export for Pro users + email nurture sequence post-signup
+- **Sprint 4:** Gamification Firestore sync + Brand Vault feature + admin business dashboard
+
+### Roadmap saved to
+- `agents/DECISIONS-SERVICE-MODEL.md` → new "NEXT IMPROVEMENT ROADMAP" section with full sprint breakdown, owner assignments, and weakness list.
+
+### Session closed
+- All pending local changes committed and pushed: `468fece`.
+- Roadmap update committed separately (see next session push).
+- **Resume command for next session:** "Continue Sprint 1 — Stripe validation + analytics + server-side limits"
 2. Agent 2 translates that into UI/interaction placement.
 3. Agent 3 implements the highest-value onboarding changes in `site/`.
 
