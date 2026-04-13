@@ -33,6 +33,8 @@
       toolsTitle: "One method, ten tools, clearer positioning.",
       toolNavTag: "Tool navigator",
       toolNavCopy: "Pick one task, move through the tools without hunting, and keep the workspace focused on one action at a time.",
+      freeToolsLabel: "Free tools",
+      premiumToolsLabel: "Premium tools",
       chooseTool: "Choose your tool",
       prevTool: "← Previous",
       nextTool: "Next →",
@@ -104,7 +106,7 @@
       authTitle: "Se connecter à Occasus Lab",
       authText: "Sauvegarde ton travail, débloque les fonctionnalités Pro et retrouve ton historique sur tous tes appareils.",
       authGoogle: "Continuer avec Google",
-      authFooter: "Le plan gratuit s'active instantanément. Upgrade à tout moment.",
+      authFooter: "Le plan gratuit s'active instantanement. Passez en Pro a tout moment.",
       footerBrand: "Occasus Lab — Projet personnel",
       footerTools: "Outils",
       footerPricing: "Tarifs",
@@ -112,10 +114,12 @@
       footerAdmin: "Admin",
       toolDayLabel: "jour",
       toolDaysLabel: "jours",
-      dailyChallengeComplete: "Complété ! +50 XP bonus",
+      dailyChallengeComplete: "Defi complete ! +50 XP bonus",
       dailyChallengePending: "Utilise 3 outils différents",
       choosePlanTitle: "Passer en Pro",
       upgradeText: "Acces illimite, versioning et exports premium pour les equipes qui exigent une communication coherente.",
+      freeToolsLabel: "Outils gratuits",
+      premiumToolsLabel: "Outils premium",
       toolInputText: "Texte original",
       clarityBtn: "Réécrire clairement",
       claritySample: "Charger un exemple",
@@ -167,6 +171,10 @@
     if (el) el.textContent = value;
   }
 
+  function msg(frText, enText) {
+    return currentLang === "fr" ? frText : enText;
+  }
+
   function applyToolButtonLabels() {
     document.querySelectorAll(".tabs__btn").forEach(function (btn, index) {
       var label = currentLang === "fr" ? btn.dataset.labelFr : btn.dataset.labelEn;
@@ -210,6 +218,8 @@
     setText("#tools .section__head h2", t("toolsTitle"));
     setText(".tool-nav__intro .tag", t("toolNavTag"));
     setText(".tool-nav__copy", t("toolNavCopy"));
+    setText("#tool-group-free", t("freeToolsLabel"));
+    setText("#tool-group-pro", t("premiumToolsLabel"));
     setText('.tool-mobile-switch__label[for="tool-select"]', t("chooseTool"));
     setText("#tool-prev", t("prevTool"));
     setText("#tool-next", t("nextTool"));
@@ -630,7 +640,7 @@
     var current = (document.getElementById("diag-current") || {}).value || "";
 
     if (!offer.trim() || !audience.trim() || !difference.trim()) {
-      toast(currentLang === "fr" ? "Renseigne offre, audience et difference" : "Fill in offer, audience, and differentiation", "info");
+      toast(msg("Renseignez l'offre, l'audience et la difference", "Fill in offer, audience, and differentiation"), "info");
       return;
     }
 
@@ -666,7 +676,7 @@
     if (elNext) elNext.textContent = next;
 
     try { localStorage.setItem("occ_diag_seed", seed); } catch (e) {}
-    toast(currentLang === "fr" ? "Clarity Report genere" : "Clarity Report generated", "success");
+    toast(msg("Rapport de clarte genere", "Clarity report generated"), "success");
   }
 
   function jumpToClarityFromDiagnostic() {
@@ -683,15 +693,15 @@
 
   /* ── OccApp global (called from HTML) ────────── */
   function mapAuthError(err) {
-    if (!err || !err.code) return "Sign-in error.";
-    if (err.code === "auth/popup-closed-by-user") return "Sign-in popup was closed.";
+    if (!err || !err.code) return msg("Erreur de connexion.", "Sign-in error.");
+    if (err.code === "auth/popup-closed-by-user") return msg("La fenetre de connexion a ete fermee.", "Sign-in popup was closed.");
     if (err.code === "auth/unauthorized-domain") {
       var host = window.location.hostname;
-      return "Unauthorized domain. Add " + host + " in Firebase Authentication > Settings > Authorized domains.";
+      return msg("Domaine non autorise. Ajoutez " + host + " dans Firebase Authentication > Settings > Authorized domains.", "Unauthorized domain. Add " + host + " in Firebase Authentication > Settings > Authorized domains.");
     }
-    if (err.code === "auth/operation-not-allowed") return "Google provider is disabled in Firebase Authentication.";
-    if (err.code === "auth/network-request-failed") return "Network error during sign-in.";
-    return "Sign-in error: " + (err.message || err.code);
+    if (err.code === "auth/operation-not-allowed") return msg("Google est desactive dans Firebase Authentication.", "Google provider is disabled in Firebase Authentication.");
+    if (err.code === "auth/network-request-failed") return msg("Erreur reseau pendant la connexion.", "Network error during sign-in.");
+    return msg("Erreur de connexion: ", "Sign-in error: ") + (err.message || err.code);
   }
 
   window.OccApp = {
@@ -703,12 +713,12 @@
       document.querySelectorAll(".modal-backdrop").forEach(function (m) { m.classList.add("hidden"); });
     },
     googleSignIn: function () {
-      if (!firebaseReady) { toast("Firebase not configured", "error"); return; }
+      if (!firebaseReady) { toast(msg("Firebase n'est pas configure", "Firebase not configured"), "error"); return; }
       var provider = new firebase.auth.GoogleAuthProvider();
       provider.setCustomParameters({ prompt: "select_account" });
       auth.signInWithPopup(provider).then(function () {
         window.OccApp.closeModals();
-        toast("Welcome back!", "success");
+        toast(msg("Bon retour!", "Welcome back!"), "success");
       }).catch(function (err) {
         if (err.code !== "auth/popup-closed-by-user") toast(mapAuthError(err), "error");
       });
@@ -719,7 +729,7 @@
       isPro = false;
       updateAuthUI();
       updateProGates();
-      toast("Signed out", "info");
+      toast(msg("Deconnecte", "Signed out"), "info");
     },
     showUpgradeModal: function () {
       var m = document.getElementById("upgrade-modal");
@@ -734,7 +744,7 @@
     },
     processUpgrade: function () {
       if (!firebaseReady || !auth) {
-        toast("Payments require Firebase configuration", "info");
+        toast(msg("Le paiement requiert une configuration Firebase", "Payments require Firebase configuration"), "info");
         return;
       }
       if (!currentUser) {
@@ -743,13 +753,13 @@
         return;
       }
       if (typeof BACKEND_CONFIG === "undefined" || !BACKEND_CONFIG.checkoutEndpoint) {
-        toast("Billing backend is not configured yet", "info");
+        toast(msg("Le backend de paiement n'est pas encore configure", "Billing backend is not configured yet"), "info");
         return;
       }
 
       var plan = window.OccApp.selectedPlan || "monthly";
       if (!["monthly", "yearly"].includes(plan)) {
-        toast("Invalid plan selected", "error");
+        toast(msg("Plan invalide selectionne", "Invalid plan selected"), "error");
         return;
       }
 
@@ -777,7 +787,7 @@
         }
         window.location.href = result.payload.url;
       }).catch(function (err) {
-        toast("Upgrade failed: " + err.message, "error");
+        toast(msg("Echec de l'upgrade: ", "Upgrade failed: ") + err.message, "error");
       });
     },
     toggleAvatarDrop: function () {
@@ -824,7 +834,7 @@
     copySocial: function (platform) {
       var el = document.getElementById("social-" + platform + "-text");
       if (!el || !el.textContent) return;
-      navigator.clipboard.writeText(el.textContent).then(function () { toast("Copied!", "success"); }).catch(function () { toast("Copy failed", "error"); });
+      navigator.clipboard.writeText(el.textContent).then(function () { toast(msg("Copie", "Copied!"), "success"); }).catch(function () { toast(msg("Echec de copie", "Copy failed"), "error"); });
     },
     loadClarityVersion: loadClarityVersionById
   };
@@ -957,7 +967,7 @@
     var input = (document.getElementById("clarity-input") || {}).value || "";
     var output = (document.getElementById("clarity-output") || {}).textContent || "";
     if (!output.trim()) {
-      toast(currentLang === "fr" ? "Genere d'abord une version" : "Generate a version first", "info");
+      toast(msg("Generez d'abord une version", "Generate a version first"), "info");
       return;
     }
 
@@ -986,7 +996,7 @@
       db.collection("users").doc(currentUser.uid).collection("clarity_versions").doc(id).set(version).catch(function () {});
     }
 
-    toast(currentLang === "fr" ? "Version enregistree" : "Version saved", "success");
+    toast(msg("Version enregistree", "Version saved"), "success");
   }
 
   function loadLatestClarityVersion() {
@@ -1019,7 +1029,7 @@
         }
       }
     }
-    toast(currentLang === "fr" ? "Version chargee" : "Version loaded", "success");
+    toast(msg("Version chargee", "Version loaded"), "success");
   }
 
   function rewriteClarity(text) {
@@ -1177,7 +1187,7 @@
     var term = document.getElementById("utm-term");
     term = term ? term.value.trim() : "";
 
-    if (!base || !source || !medium || !campaign) { toast("Fill in URL, source, medium, and campaign", "info"); return; }
+    if (!base || !source || !medium || !campaign) { toast(msg("Renseignez URL, source, canal et campagne", "Fill in URL, source, medium, and campaign"), "info"); return; }
     recordUse("utm");
 
     var slug = function (s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/(^_|_$)/g, ""); };
@@ -1194,7 +1204,7 @@
   function copyUTM() {
     var url = document.getElementById("utm-output").textContent;
     if (!url || url === "—") return;
-    navigator.clipboard.writeText(url).then(function () { toast("Copied to clipboard!", "success"); }).catch(function () { toast("Copy failed", "error"); });
+    navigator.clipboard.writeText(url).then(function () { toast(msg("Copie dans le presse-papiers", "Copied to clipboard!"), "success"); }).catch(function () { toast(msg("Echec de copie", "Copy failed"), "error"); });
   }
 
   /* ═══════════════════════════════════════════════════
@@ -1208,9 +1218,9 @@
   };
 
   function runTone() {
-    if (!canUse("tone")) { toast("Tone Analyzer is a Pro feature", "info"); window.OccApp.showUpgradeModal(); return; }
+    if (!canUse("tone")) { toast(msg("Tone Analyzer est reserve au plan Pro", "Tone Analyzer is a Pro feature"), "info"); window.OccApp.showUpgradeModal(); return; }
     var text = document.getElementById("tone-input").value.trim().toLowerCase();
-    if (!text) { toast("Enter text to analyze", "info"); return; }
+    if (!text) { toast(msg("Entrez un texte a analyser", "Enter text to analyze"), "info"); return; }
     recordUse("tone");
 
     var counts = { formal: 0, casual: 0, technical: 0, persuasive: 0 };
@@ -1243,7 +1253,7 @@
 
     var verdict = document.getElementById("tone-advice");
     if (verdict) verdict.textContent = "Your text is predominantly " + dominant + " (" + pcts[dominant] + "%). " + toneAdvice(dominant);
-    toast("Tone analysis complete", "success");
+    toast(msg("Analyse du ton terminee", "Tone analysis complete"), "success");
   }
 
   function toneAdvice(t) {
@@ -1300,10 +1310,10 @@
   }
 
   function runHeadline() {
-    if (!canUse("headline")) { toast("Headline Scorer is a Pro feature", "info"); window.OccApp.showUpgradeModal(); return; }
+    if (!canUse("headline")) { toast(msg("Headline Scorer est reserve au plan Pro", "Headline Scorer is a Pro feature"), "info"); window.OccApp.showUpgradeModal(); return; }
     var h1 = document.getElementById("headline-input").value.trim();
     var h2 = document.getElementById("headline-input-2").value.trim();
-    if (!h1) { toast("Enter at least one headline", "info"); return; }
+    if (!h1) { toast(msg("Entrez au moins un titre", "Enter at least one headline"), "info"); return; }
     recordUse("headline");
 
     var s1 = scoreHeadline(h1);
@@ -1331,7 +1341,7 @@
       checkBadges();
     }
 
-    toast("Headlines scored", "success");
+    toast(msg("Titres evalues", "Headlines scored"), "success");
   }
 
   function renderHeadlineScore(containerId, s) {
@@ -1409,7 +1419,7 @@
   }
 
   function runReadability() {
-    if (!canUse("readability")) { toast("Daily limit reached — upgrade to Pro", "info"); window.OccApp.showUpgradeModal(); return; }
+    if (!canUse("readability")) { toast(msg("Limite du jour atteinte — passez en Pro", "Daily limit reached — upgrade to Pro"), "info"); window.OccApp.showUpgradeModal(); return; }
     var text = (document.getElementById("readability-input").value || "").trim();
     if (!text) { toast(currentLang === "fr" ? "Colle un texte à analyser" : "Paste some text to analyze", "info"); return; }
     recordUse("readability");
@@ -1463,7 +1473,7 @@
   var EMAIL_POWER_WORDS = ["discover", "proven", "secret", "exclusive", "instant", "new", "you", "your", "how", "why", "alert", "breaking", "mistake", "transform", "unlock"];
 
   function runEmail() {
-    if (!canUse("email")) { toast("Daily limit reached — upgrade to Pro", "info"); window.OccApp.showUpgradeModal(); return; }
+    if (!canUse("email")) { toast(msg("Limite du jour atteinte — passez en Pro", "Daily limit reached — upgrade to Pro"), "info"); window.OccApp.showUpgradeModal(); return; }
     var subject = (document.getElementById("email-subject").value || "").trim();
     if (!subject) { toast(currentLang === "fr" ? "Entre un objet d'email" : "Enter a subject line", "info"); return; }
     recordUse("email");
@@ -1521,7 +1531,7 @@
   function escHTML(s) { var d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
 
   function runSEO() {
-    if (!canUse("seo")) { toast("Daily limit reached — upgrade to Pro", "info"); window.OccApp.showUpgradeModal(); return; }
+    if (!canUse("seo")) { toast(msg("Limite du jour atteinte — passez en Pro", "Daily limit reached — upgrade to Pro"), "info"); window.OccApp.showUpgradeModal(); return; }
     var title = (document.getElementById("seo-title").value || "").trim();
     var desc = (document.getElementById("seo-desc").value || "").trim();
     var url = (document.getElementById("seo-url").value || "").trim();
@@ -1580,7 +1590,7 @@
   function copySEOHTML() {
     var html = document.getElementById("seo-html").textContent;
     if (!html) return;
-    navigator.clipboard.writeText(html).then(function () { toast("HTML copied!", "success"); }).catch(function () { toast("Copy failed", "error"); });
+    navigator.clipboard.writeText(html).then(function () { toast(msg("HTML copie", "HTML copied!"), "success"); }).catch(function () { toast(msg("Echec de copie", "Copy failed"), "error"); });
   }
 
   /* ═══════════════════════════════════════════════════
@@ -1594,9 +1604,9 @@
   }
 
   function runSocial() {
-    if (!canUse("social")) { toast("Social Post is a Pro feature", "info"); window.OccApp.showUpgradeModal(); return; }
+    if (!canUse("social")) { toast(msg("Social Post est reserve au plan Pro", "Social Post is a Pro feature"), "info"); window.OccApp.showUpgradeModal(); return; }
     var text = (document.getElementById("social-input").value || "").trim();
-    if (!text) { toast("Type a message to format", "info"); return; }
+    if (!text) { toast(msg("Saisissez un message a adapter", "Type a message to format"), "info"); return; }
     recordUse("social");
 
     var tags = extractHashtags(text);
@@ -1623,7 +1633,7 @@
     document.getElementById("social-li-count").textContent = liText.length + "/3000";
     document.getElementById("social-ig-count").textContent = igText.length + "/2200";
     document.getElementById("social-th-count").textContent = thText.length + "/500";
-    toast("Formatted for 4 platforms", "success");
+    toast(msg("Message adapte pour 4 plateformes", "Formatted for 4 platforms"), "success");
   }
 
   /* ═══════════════════════════════════════════════════
