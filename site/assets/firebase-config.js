@@ -38,7 +38,8 @@ var PRO_PRICE = { monthly: 18, yearly: 180, currency: "€" };
 var ADMIN_ACCESS = {
   emails: [
     "andrew.neuburger@community.isunet.edu",
-    "andrew.neuburger@isunet.edu"
+    "andrew.neuburger@isunet.edu",
+    "andrewneuburger67@gmail.com"
   ],
   domains: [
     "community.isunet.edu",
