@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.repository == 'andrew-space/studio-occasus'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
