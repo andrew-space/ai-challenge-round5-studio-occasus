@@ -13,10 +13,10 @@
 
   var UI_TEXT = {
     en: {
-      docTitle: "Occasus Lab | 10 Free Marketing Tools",
-      metaDescription: "10 research-backed marketing tools: Clarity Rewriter, Brand Messaging, UTM Builder, Readability Analyzer, Email Subject Tester, SEO Preview, and more. Free to use, gamified for daily growth.",
-      ogTitle: "Occasus Lab | 10 Free Marketing Tools",
-      ogDescription: "10 tools for clarity, positioning, and calm campaign structure. Gamified for daily use.",
+      docTitle: "Occasus Lab | Clarity Service for Founders",
+      metaDescription: "Turn messy messaging into clear positioning before you spend on marketing. Free tier with guided clarity workflow, Pro for unlimited execution.",
+      ogTitle: "Occasus Lab | Clarity Service for Founders",
+      ogDescription: "A repeatable clarity method with practical tools: diagnose your message, rewrite with precision, and scale with Pro.",
       navTools: "Tools",
       navPricing: "Pricing",
       navBlog: "Blog",
@@ -24,13 +24,13 @@
       freePlan: "Free Plan",
       adminPanel: "Admin panel",
       signOut: "Sign out",
-      heroTag: "10 research-backed marketing tools — free",
-      heroTitle: "From noise<br>to clarity.",
-      heroSub: "Rewrite copy, score headlines, test email subjects, format social posts, check readability, and more. Gamified so you improve every day.",
-      heroStart: "Start using tools — free",
+      heroTag: "Clarity service + tools — free to start",
+      heroTitle: "Get your core message right<br>before you spend on marketing.",
+      heroSub: "Occasus Lab combines a repeatable clarity method with practical tools so founders and consultants can ship sharper positioning, faster.",
+      heroStart: "Start free clarity workflow",
       heroPricing: "See pricing →",
-      toolsTag: "Marketing toolkit",
-      toolsTitle: "Ten tools for clarity-driven marketing.",
+      toolsTag: "Clarity workspace",
+      toolsTitle: "One method, ten tools, clearer positioning.",
       toolNavTag: "Tool navigator",
       toolNavCopy: "Pick one task, move through the tools without hunting, and keep the workspace focused on one action at a time.",
       chooseTool: "Choose your tool",
@@ -38,15 +38,15 @@
       nextTool: "Next →",
       usageLink: "Upgrade for unlimited →",
       pricingTag: "Simple pricing",
-      pricingTitle: "Use for free. Upgrade when you need more.",
-      ctaTitle: "Ready to write with clarity?",
-      ctaText: "10 tools. Daily streaks. Badges that prove you're getting better. Start free.",
-      ctaButton: "Open the toolkit",
+      pricingTitle: "Start free. Upgrade when clarity becomes mission-critical.",
+      ctaTitle: "Ready to lead with a clearer message?",
+      ctaText: "Start with the free clarity workflow. Upgrade when you need unlimited execution and team velocity.",
+      ctaButton: "Open clarity workspace",
       authTitle: "Sign in to Occasus Lab",
       authText: "Save your work, unlock Pro features, and access your history across devices.",
       authGoogle: "Continue with Google",
       authFooter: "Free plan activates instantly. Upgrade anytime.",
-      footerBrand: "Occasus Lab MVP — Round 5 App Showcase",
+      footerBrand: "Occasus Lab — Personal Project",
       footerTools: "Tools",
       footerPricing: "Pricing",
       footerBlog: "Blog",
@@ -56,7 +56,7 @@
       dailyChallengeComplete: "Complete! +50 XP bonus",
       dailyChallengePending: "Use 3 different tools",
       choosePlanTitle: "Upgrade to Pro",
-      upgradeText: "Unlimited access to all 10 tools, saved history, and priority features.",
+      upgradeText: "Unlimited access, versioning, and premium exports for teams that need consistent messaging.",
       toolInputText: "Your original text",
       clarityBtn: "Rewrite for clarity",
       claritySample: "Load example",
@@ -72,10 +72,10 @@
       socialBtn: "Format for all platforms"
     },
     fr: {
-      docTitle: "Occasus Lab | 10 outils marketing gratuits",
-      metaDescription: "10 outils marketing fondés sur la recherche : réécriture claire, message de marque, créateur UTM, lisibilité, objet d'email, aperçu SEO, et plus encore. Gratuit, gamifié, utile au quotidien.",
-      ogTitle: "Occasus Lab | 10 outils marketing gratuits",
-      ogDescription: "10 outils pour la clarté, le positionnement et une structure de campagne plus calme. Gamifié pour un usage quotidien.",
+      docTitle: "Occasus Lab | Service de clarte pour fondateurs",
+      metaDescription: "Transformez un message confus en positionnement clair avant de depenser en marketing. Offre gratuite guidee, Pro pour execution illimitee.",
+      ogTitle: "Occasus Lab | Service de clarte pour fondateurs",
+      ogDescription: "Une methode de clarte repetable avec des outils pratiques: diagnostic, reecriture precise, puis passage a l'echelle avec Pro.",
       navTools: "Outils",
       navPricing: "Tarifs",
       navBlog: "Blog",
@@ -83,13 +83,13 @@
       freePlan: "Plan gratuit",
       adminPanel: "Admin",
       signOut: "Déconnexion",
-      heroTag: "10 outils marketing fondés sur la recherche — gratuits",
-      heroTitle: "Du bruit<br>à la clarté.",
-      heroSub: "Réécris tes textes, score tes titres, teste tes objets d'email, formate tes posts sociaux et vérifie la lisibilité. Le tout dans une expérience qui te fait progresser chaque jour.",
-      heroStart: "Commencer gratuitement",
+      heroTag: "Service de clarte + outils — gratuit pour commencer",
+      heroTitle: "Clarifiez votre message central<br>avant d'investir en marketing.",
+      heroSub: "Occasus Lab combine une methode de clarte repetable et des outils pratiques pour aider fondateurs et consultants a positionner plus vite.",
+      heroStart: "Demarrer le parcours gratuit",
       heroPricing: "Voir les tarifs →",
-      toolsTag: "Boîte à outils marketing",
-      toolsTitle: "Dix outils pour un marketing plus clair.",
+      toolsTag: "Espace clarte",
+      toolsTitle: "Une methode, dix outils, un positionnement plus net.",
       toolNavTag: "Navigation outils",
       toolNavCopy: "Choisis une tâche, passe d'un outil à l'autre sans chercher, et garde l'espace de travail centré sur une action à la fois.",
       chooseTool: "Choisir un outil",
@@ -97,15 +97,15 @@
       nextTool: "Suivant →",
       usageLink: "Passer en illimité →",
       pricingTag: "Tarification simple",
-      pricingTitle: "Utilise gratuitement. Passe en Pro quand tu en as besoin.",
-      ctaTitle: "Prêt à écrire avec clarté ?",
-      ctaText: "10 outils. Des streaks quotidiens. Des badges qui prouvent tes progrès. Commence gratuitement.",
-      ctaButton: "Ouvrir la boîte à outils",
+      pricingTitle: "Commencez gratuitement. Passez en Pro quand la clarte devient critique.",
+      ctaTitle: "Pret a communiquer avec plus de clarte ?",
+      ctaText: "Commencez avec le parcours gratuit. Passez en Pro pour une execution illimitee et collaborative.",
+      ctaButton: "Ouvrir l'espace clarte",
       authTitle: "Se connecter à Occasus Lab",
       authText: "Sauvegarde ton travail, débloque les fonctionnalités Pro et retrouve ton historique sur tous tes appareils.",
       authGoogle: "Continuer avec Google",
       authFooter: "Le plan gratuit s'active instantanément. Upgrade à tout moment.",
-      footerBrand: "Occasus Lab MVP — Round 5 App Showcase",
+      footerBrand: "Occasus Lab — Projet personnel",
       footerTools: "Outils",
       footerPricing: "Tarifs",
       footerBlog: "Blog",
@@ -115,7 +115,7 @@
       dailyChallengeComplete: "Complété ! +50 XP bonus",
       dailyChallengePending: "Utilise 3 outils différents",
       choosePlanTitle: "Passer en Pro",
-      upgradeText: "Accès illimité aux 10 outils, historique sauvegardé et fonctionnalités prioritaires.",
+      upgradeText: "Acces illimite, versioning et exports premium pour les equipes qui exigent une communication coherente.",
       toolInputText: "Texte original",
       clarityBtn: "Réécrire clairement",
       claritySample: "Charger un exemple",
@@ -310,11 +310,11 @@
   }
 
   /* ── Limits ───────────────────────────────────── */
-  var LIMITS = (typeof FREE_LIMITS !== "undefined") ? FREE_LIMITS : { clarity: 5, brand: 3, utm: 999, tone: 0, headline: 0, counter: 999, readability: 5, email: 5, seo: 5, social: 0 };
+  var LIMITS = (typeof FREE_LIMITS !== "undefined") ? FREE_LIMITS : { clarity: 3, brand: 1, utm: 999, tone: 0, headline: 0, counter: 999, readability: 999, email: 999, seo: 999, social: 0 };
 
   /* ── Gamification ─────────────────────────────── */
   var XP_VALUES = { clarity: 15, brand: 20, utm: 5, tone: 15, headline: 15, counter: 5, readability: 10, email: 10, seo: 10, social: 15 };
-  var TOOL_NAMES = { clarity: "Clarity Rewriter", brand: "Brand Messaging", utm: "UTM Builder", tone: "Tone Analyzer", headline: "Headline Scorer", counter: "Word Counter", readability: "Readability", email: "Email Subject", seo: "SEO Preview", social: "Social Post" };
+  var TOOL_NAMES = { clarity: "Message Clarity Engine", brand: "Positioning Builder", utm: "UTM Builder", tone: "Tone Analyzer", headline: "Headline Scorer", counter: "Word Counter", readability: "Readability", email: "Email Subject", seo: "SEO Preview", social: "Social Post" };
   var LEVELS = [
     { name: "Intern", min: 0 },
     { name: "Junior", min: 100 },
@@ -804,9 +804,9 @@
     activateTool(activeTool);
   }
 
-  /* ═══════════════════════════════════════════════════
-     TOOL 1 · Clarity Rewriter
-     ═══════════════════════════════════════════════════ */
+    /* ═══════════════════════════════════════════════════
+      TOOL 1 · Message Clarity Engine
+      ═══════════════════════════════════════════════════ */
   var JARGON = {
     "utilize": "use", "utilise": "use", "leverage": "use", "implement": "set up",
     "facilitate": "help", "optimize": "improve", "synergy": "teamwork",
@@ -918,11 +918,11 @@
     toast(currentLang === "fr" ? "Analyse de clarté terminée" : "Clarity analysis complete", "success");
   }
 
-  /* ═══════════════════════════════════════════════════
-     TOOL 2 · Brand Message Generator
-     ═══════════════════════════════════════════════════ */
+    /* ═══════════════════════════════════════════════════
+      TOOL 2 · Positioning Builder
+      ═══════════════════════════════════════════════════ */
   function runBrand() {
-    if (!canUse("brand")) { toast("Daily limit reached — upgrade to Pro", "info"); window.OccApp.showUpgradeModal(); return; }
+    if (!canUse("brand")) { toast(currentLang === "fr" ? "Limite du jour atteinte — passe en Pro" : "Daily limit reached — upgrade to Pro", "info"); window.OccApp.showUpgradeModal(); return; }
     var product = document.getElementById("brand-product").value.trim();
     var audience = document.getElementById("audience").value.trim();
     var problem = document.getElementById("problem").value.trim();
@@ -960,7 +960,7 @@
     document.getElementById("value-output").textContent = elevator;
     document.getElementById("lead-output").textContent = headline;
     document.getElementById("brand-cta").textContent = cta;
-    toast(currentLang === "fr" ? "Messages de marque générés" : "Brand messages generated", "success");
+    toast(currentLang === "fr" ? "Positionnement genere" : "Positioning generated", "success");
   }
   function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ""; }
   function gerund(w) { return w ? (w.endsWith("e") ? w.slice(0, -1) + "ing" : w + "ing") : "doing"; }
