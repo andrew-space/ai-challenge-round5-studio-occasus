@@ -235,6 +235,8 @@ Run Studio Occasus as a self-improving product team where agents:
 - implement directly when safe,
 - report outcomes in a recurring reunion loop.
 
+Execution reference: `autonomous-weekly-runbook.md`.
+
 ### Operating cadence
 
 1. **Daily micro-cycle (Auto Run):** detect -> rank -> ship small safe improvements.

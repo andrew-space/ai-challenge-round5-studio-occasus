@@ -228,6 +228,12 @@ This file is the running history for Studio Occasus (personal project). It shoul
 - Added weekly reunion structure to review shipped outcomes, missed issues, and next sprint commitments.
 - Added manager command template for autonomous operation with escalation to gated Mode E when risk is medium/high.
 
+## 2026-04-14 - Weekly runbook added for autonomous operations
+
+- Added `agents/autonomous-weekly-runbook.md` with a practical Monday-Friday operating rhythm.
+- Includes daily micro-cycle, auto-apply checklist, validation checklist, weekly reunion template, and manager kickoff script.
+- Linked runbook into Team Manager and collaboration protocol to keep Mode F executable, not theoretical.
+
 - Agent 12 activated a dependency-gated deployment mission aligned to the strategic reunion decisions.
 - Execution mode selected: Mode E (new version deployment).
 - Gate A opened: Product/copy lock handled by Agent 1 + Agent 4.

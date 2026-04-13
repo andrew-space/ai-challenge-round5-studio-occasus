@@ -149,6 +149,7 @@ Mode F policy:
 - Frequency: daily micro-cycle + weekly reunion checkpoint.
 - Auto-apply only low-risk improvements.
 - Medium/high-risk items must be rerouted to gated flow (Mode E).
+- Weekly execution script: `autonomous-weekly-runbook.md`.
 
 Mode F required artifacts:
 - Opportunity shortlist with impact/risk score.
