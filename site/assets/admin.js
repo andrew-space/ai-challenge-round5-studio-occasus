@@ -9,6 +9,15 @@
   var articleListBound = false;
   var usersListBound = false;
 
+  var FUNNEL_STEPS = [
+    { key: "page_view",                 label: "Page Views" },
+    { key: "quickstart_started",         label: "Quickstart Started" },
+    { key: "diagnostic_completed",       label: "Diagnostic Completed" },
+    { key: "clarity_run_completed",      label: "Clarity Run" },
+    { key: "upgrade_modal_opened",       label: "Upgrade Modal Opened" },
+    { key: "checkout_session_requested", label: "Checkout Started" }
+  ];
+
   function normalizeEmail(email) {
     return String(email || "").trim().toLowerCase();
   }
@@ -106,6 +115,14 @@
       auth.signOut();
     });
 
+    var btnRefresh = document.getElementById("btn-refresh-funnel");
+    if (btnRefresh) {
+      btnRefresh.addEventListener("click", function () {
+        document.getElementById("funnel-chart").innerHTML = "<p style='color:var(--muted);font-size:.85rem'>Loading\u2026</p>";
+        loadFunnel();
+      });
+    }
+
     document.getElementById("btn-new-article").addEventListener("click", function () {
       document.getElementById("article-editor").classList.remove("hidden");
       document.getElementById("editor-title").textContent = "New Article";
@@ -123,6 +140,7 @@
     loadStats();
     loadArticles();
     loadUsers();
+    loadFunnel();
   }
 
   function loadStats() {
@@ -270,6 +288,70 @@
     db.collection("articles").doc(id).delete().then(function () {
       loadArticles();
     });
+  }
+
+  function loadFunnel() {
+    var chart = document.getElementById("funnel-chart");
+    var meta = document.getElementById("funnel-meta");
+    if (!chart) return;
+
+    db.collection("analytics_events")
+      .orderBy("at", "desc")
+      .limit(5000)
+      .get()
+      .then(function (snap) {
+        var counts = {};
+        var today = new Date().toISOString().slice(0, 10);
+        var todayRuns = 0;
+        snap.forEach(function (doc) {
+          var d = doc.data();
+          if (!d.name) return;
+          counts[d.name] = (counts[d.name] || 0) + 1;
+          if (d.at && String(d.at).slice(0, 10) === today) todayRuns++;
+        });
+        var statRuns = document.getElementById("stat-runs");
+        if (statRuns) statRuns.textContent = todayRuns;
+        meta.textContent = snap.size + " events stored (showing last 5 000)";
+        renderFunnel(chart, counts);
+      })
+      .catch(function (err) {
+        chart.innerHTML = "<p style='color:#e53e3e'>Error: " + esc(err.message) + "</p>";
+      });
+  }
+
+  function renderFunnel(container, counts) {
+    var baseline = counts["page_view"] || 1;
+    var html = "<div class='funnel'>";
+    html += "<div class='funnel__row' style='font-size:.75rem;color:var(--muted);font-weight:600'>" +
+      "<div>Step</div><div></div><div style='text-align:right'>Count</div><div style='text-align:right'>Conv.</div></div>";
+    FUNNEL_STEPS.forEach(function (step, i) {
+      var count = counts[step.key] || 0;
+      var prev = i === 0 ? baseline : (counts[FUNNEL_STEPS[i - 1].key] || 1);
+      var conv = i === 0 ? 100 : (prev > 0 ? Math.round((count / prev) * 100) : 0);
+      var barW = baseline > 0 ? Math.min(Math.round((count / baseline) * 100), 100) : 0;
+      var lowClass = (i > 0 && conv < 25) ? " funnel__pct--low" : "";
+      html +=
+        "<div class='funnel__row'>" +
+        "<div class='funnel__label'>" + esc(step.label) + "</div>" +
+        "<div class='funnel__bar-wrap'><div class='funnel__bar' style='width:" + Math.max(barW, count > 0 ? 1 : 0) + "%'></div></div>" +
+        "<div class='funnel__count'>" + count.toLocaleString() + "</div>" +
+        "<div class='funnel__pct" + lowClass + "'>" + (i === 0 ? "\u2014" : conv + "%") + "</div>" +
+        "</div>";
+    });
+    html += "</div>";
+
+    var other = Object.keys(counts).filter(function (k) {
+      return !FUNNEL_STEPS.some(function (s) { return s.key === k; });
+    }).sort();
+    if (other.length) {
+      html += "<details class='funnel__other' style='margin-top:1.25rem'><summary>Other events (" + other.length + ")</summary><div style='margin-top:.5rem'>";
+      other.forEach(function (k) {
+        html += "<div class='funnel__other-row'><span style='flex:1;color:var(--muted)'>" + esc(k) + "</span><span>" + counts[k].toLocaleString() + "</span></div>";
+      });
+      html += "</div></details>";
+    }
+
+    container.innerHTML = html;
   }
 
   function esc(str) {

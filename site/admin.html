@@ -65,6 +65,16 @@
         <div id="users-list" class="admin__list"></div>
       </section>
 
+      <!-- Funnel Analytics -->
+      <section class="admin__section">
+        <div class="admin__section-head">
+          <h3>Funnel Analytics</h3>
+          <button class="btn btn--sm btn--ghost" id="btn-refresh-funnel">&#8635; Refresh</button>
+        </div>
+        <p id="funnel-meta" style="color:var(--muted);font-size:.8rem;margin:.25rem 0 1rem"></p>
+        <div id="funnel-chart"><p style="color:var(--muted);font-size:.85rem">Loading…</p></div>
+      </section>
+
       <!-- Article Editor Modal -->
       <div class="admin__editor hidden" id="article-editor">
         <h3 id="editor-title">New Article</h3>
@@ -92,6 +102,19 @@
     </div>
   </main>
 
+  <style>
+    .funnel{display:flex;flex-direction:column;gap:.5rem}
+    .funnel__row{display:grid;grid-template-columns:12rem 1fr 4.5rem 3rem;align-items:center;gap:.75rem;font-size:.85rem}
+    .funnel__label{color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .funnel__bar-wrap{background:rgba(var(--accent-rgb,245,158,11),.12);border-radius:3px;height:10px;overflow:hidden}
+    .funnel__bar{height:100%;background:var(--accent,#f59e0b);border-radius:3px;transition:width .4s ease}
+    .funnel__count{text-align:right;color:var(--text);font-variant-numeric:tabular-nums}
+    .funnel__pct{text-align:right;color:var(--muted);font-size:.78rem}
+    .funnel__pct--low{color:#e53e3e}
+    .funnel__other summary{cursor:pointer;color:var(--muted);font-size:.82rem;padding:.25rem 0}
+    .funnel__other-row{display:flex;gap:.5rem;font-size:.82rem;padding:.2rem 0;border-bottom:1px solid rgba(128,128,128,.08)}
+    @media(max-width:600px){.funnel__row{grid-template-columns:7rem 1fr 3rem 2.5rem;font-size:.78rem}}
+  </style>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
