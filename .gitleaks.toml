@@ -1,0 +1,17 @@
+# Gitleaks configuration — Studio Occasus
+#
+# Firebase web SDK API keys are intentionally public client-side identifiers.
+# They are used to route requests to the correct Firebase project but grant
+# no privileged access on their own. Security is enforced by:
+#   - Firebase Authentication (who can use the project)
+#   - Firestore Security Rules (what data they can read/write)
+#   - GCP API key restrictions (authorized domains in Cloud Console)
+#
+# Reference: https://firebase.google.com/docs/projects/api-keys
+# "Unlike how API keys are typically used, API keys for Firebase services are
+#  not used to control access to backend resources; that's done with
+#  Firebase Security Rules."
+
+[allowlist]
+  description = "Firebase web SDK config is a public client-side identifier, not a secret"
+  paths = ['''site/assets/firebase-config\.js''']
