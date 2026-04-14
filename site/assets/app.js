@@ -6,7 +6,7 @@
   "use strict";
 
   /* ── Firebase ─────────────────────────────────── */
-  var db = null, auth = null, currentUser = null, isPro = false;
+  var db = null, auth = null, currentUser = null, isPro = false, unsubUser = null;
   var firebaseReady = false;
   var currentLang = localStorage.getItem("occ_lang") === "fr" ? "fr" : "en";
   var activeTool = "clarity";
@@ -641,7 +641,8 @@
           lastLogin: firebase.firestore.FieldValue.serverTimestamp()
         }, { merge: true });
 
-        db.collection("users").doc(user.uid).get().then(function (doc) {
+        if (unsubUser) { unsubUser(); }
+        unsubUser = db.collection("users").doc(user.uid).onSnapshot(function (doc) {
           isPro = doc.exists && doc.data().isPro === true;
           updateAuthUI();
           updateProGates();
@@ -816,6 +817,7 @@
       });
     },
     signOut: function () {
+      if (unsubUser) { unsubUser(); unsubUser = null; }
       if (auth) auth.signOut();
       currentUser = null;
       isPro = false;

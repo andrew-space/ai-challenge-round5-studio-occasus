@@ -32,6 +32,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--nav-h) + 24px);
+  overflow-x: hidden;
 }
 
 body {
@@ -1174,6 +1175,8 @@ h3 { font-size: clamp(1.4rem, 2.5vw, 1.9rem); }
   border-color: var(--pro);
   background: var(--pro-soft);
 }
+.upgrade-option--active strong { color: var(--ink); }
+.upgrade-option--active span   { color: var(--ink); opacity: .8; }
 .upgrade-option:hover { border-color: var(--pro); }
 
 /* ═══════════════════════════════════════════════════
