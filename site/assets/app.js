@@ -538,7 +538,7 @@
     var xp_el = document.getElementById("xp-points");
     if (xp_el) xp_el.textContent = xp + " XP";
     var xf = document.getElementById("xp-fill");
-    if (xf) xf.style.width = pct + "%";
+    if (xf) xf.style.transform = "scaleX(" + (pct / 100) + ")";
 
     /* Dashboard stats */
     var gs = document.getElementById("gf-streak");
@@ -657,7 +657,7 @@
     var pct = Math.min(100, Math.round((total / max) * 100));
     var fill = bar.querySelector(".usage-bar__fill");
     var text = bar.querySelector(".usage-bar__text");
-    if (fill) { fill.style.width = pct + "%"; fill.classList.toggle("usage-bar__fill--warn", pct >= 80); }
+    if (fill) { fill.style.transform = "scaleX(" + (pct / 100) + ")"; fill.classList.toggle("usage-bar__fill--warn", pct >= 80); }
     if (text) text.textContent = currentLang === "fr" ? total + " / " + max + " actions guidees gratuites aujourd'hui" : total + " / " + max + " guided free actions today";
   }
 
@@ -1437,7 +1437,7 @@
       var fill = document.getElementById("limit-" + p);
       if (fill) {
         var pct = Math.min(100, Math.round((chars / PLATFORM_LIMITS[p]) * 100));
-        fill.style.width = pct + "%";
+        fill.style.transform = "scaleX(" + (pct / 100) + ")";
         fill.classList.toggle("limit-bar__fill--over", chars > PLATFORM_LIMITS[p]);
       }
     });
